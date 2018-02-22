@@ -13,14 +13,16 @@ radius = 50.0
 custom_solver_bias = 0.0
 radius = 50.0
 
-[node name="drone" type="RigidBody2D"]
+[node name="drone" type="RigidBody2D" groups=[
+"ENEMY",
+]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 8
-collision/mask = 8
+collision/mask = 16
 mode = 0
 mass = 1.0
 friction = 1.0
@@ -69,7 +71,9 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="hurtbox" type="Area2D" parent="."]
+[node name="hurtbox" type="Area2D" parent="." groups=[
+"ENEMY",
+]]
 
 editor/display_folded = true
 input/pickable = true

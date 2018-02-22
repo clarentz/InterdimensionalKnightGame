@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Scripts/Ranger.gd" type="Script" id=1]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Sprites/ranger_sprite.png" type="Texture" id=2]
-[ext_resource path="res://Debuggers/enemy_debugger.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Character/Enemy/etc/alert_sign.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Sprites/ranger_sprite.png" type="Texture" id=3]
+[ext_resource path="res://Debuggers/enemy_debugger.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -288,10 +289,15 @@ PROJECTILE_SPEED = 600
 
 [node name="flip" type="Node2D" parent="."]
 
+[node name="alert_sign" parent="flip" instance=ExtResource( 2 )]
+
+visibility/visible = false
+transform/pos = Vector2( 0, -75 )
+
 [node name="sprite" type="Sprite" parent="flip"]
 
 transform/scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 offset = Vector2( -50, -20 )
 flip_h = true
 hframes = 3
@@ -395,6 +401,6 @@ cast_to = Vector2( 0, 50 )
 layer_mask = 4
 type_mask = 1
 
-[node name="enemy_debugger" parent="." instance=ExtResource( 3 )]
+[node name="enemy_debugger" parent="." instance=ExtResource( 4 )]
 
 
