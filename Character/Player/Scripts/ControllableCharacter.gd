@@ -34,6 +34,7 @@ func update_state():
 	state_machine.update()
 	pass
 
+##FUNCTION
 ##ovrride take_damage
 func take_damage(damage, direction, push_back_force):
 	.take_damage(damage, direction, push_back_force)
@@ -42,11 +43,8 @@ func take_damage(damage, direction, push_back_force):
 	state_machine.pop_state()
 	state_machine.push_state(STATE.HURT)
 	ground_detector.set_enabled(false)
-	apply_status(Utils.STATUS.INVULNERABLE, 3, 0)
+	apply_status(Utils.STATUS.INVULNERABLE, 2, 0)
 	pass
-
-##FUNCTION
-
 #move function
 func move(to_speed, acc): 
 	current_speed.x = lerp(current_speed.x, to_speed, acc*0.01) #acc * 0.01, turn into percent

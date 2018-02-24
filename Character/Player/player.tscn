@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Character/Player/Scripts/ControllableCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Weapon/DefaultSword/DefaultSword.tscn" type="PackedScene" id=2]
@@ -250,6 +250,77 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -16 ) ]
 }
 
+[sub_resource type="Animation" id=8]
+
+resource/name = "init"
+length = 0.02
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("flip/Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("flip/Sprites:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "invulnerable"
+length = 0.5
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("flip/Sprites:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25, 0.5 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.5, 1.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "poison"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("flip/Sprites:modulate")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.141418, 0.4375, 0.0991211, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("flip/Sprites:visibility/opacity")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
 [node name="player" type="RigidBody2D" groups=[
 "PLAYER",
 ]]
@@ -335,7 +406,6 @@ drag_margin/bottom = 0.2
 [node name="hurtbox" type="Area2D" parent="." groups=[
 "PLAYER",
 "HURTBOX",
-"player_hurtbox",
 ]]
 
 editor/display_folded = true
@@ -384,6 +454,19 @@ anims/idle = SubResource( 4 )
 anims/root = SubResource( 5 )
 anims/run = SubResource( 6 )
 anims/test = SubResource( 7 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="anim_status" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/init = SubResource( 8 )
+anims/invulnerable = SubResource( 9 )
+anims/poison = SubResource( 10 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
