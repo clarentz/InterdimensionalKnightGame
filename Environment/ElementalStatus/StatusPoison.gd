@@ -2,7 +2,6 @@ extends "res://Environment/ElementalStatus/Status.gd"
 
 var base_damage = 1
 
-
 func _init(t, dur, lv).(t, dur, lv):
 	type = Utils.STATUS.POISON
 	tick_time = 1

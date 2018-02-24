@@ -2,10 +2,11 @@ extends Node
 
 ##PRELOAD
 var StatusPoison = preload("res://Environment/ElementalStatus/StatusPoison.gd")
-
+var StatusInvulnerable = preload("res://Environment/ElementalStatus/StatusInvulnerable.gd")
 #enum
 enum STATUS{
 	POISON = 1
+	INVULNERABLE = 2
 }
 
 var elapsed_time = 0  # Time from the start of the game
@@ -35,4 +36,6 @@ func get_main_node():
 func creat_status(type, target, duration, level):
 	if type == STATUS.POISON:
 		return StatusPoison.new(target, duration, level)
+	elif type == STATUS.INVULNERABLE:
+		return StatusInvulnerable.new(target, duration, level)
 	pass

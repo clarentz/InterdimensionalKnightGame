@@ -334,8 +334,8 @@ drag_margin/bottom = 0.2
 
 [node name="hurtbox" type="Area2D" parent="." groups=[
 "PLAYER",
-"player_hurtbox",
 "HURTBOX",
+"player_hurtbox",
 ]]
 
 editor/display_folded = true

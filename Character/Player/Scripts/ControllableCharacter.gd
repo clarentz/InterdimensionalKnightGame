@@ -22,7 +22,7 @@ var btn_atk2 = input_states.new("btn_atk2")
 
 #weapon
 onready var weapon = flip.get_node("DefaultSword")
-
+onready var hurtbox = get_node("hurtbox")
 #air atk already or not
 var is_air_atk = false
 
@@ -42,6 +42,7 @@ func take_damage(damage, direction, push_back_force):
 	state_machine.pop_state()
 	state_machine.push_state(STATE.HURT)
 	ground_detector.set_enabled(false)
+	apply_status(Utils.STATUS.INVULNERABLE, 3, 0)
 	pass
 
 ##FUNCTION
@@ -132,12 +133,12 @@ func state_air():
 func state_attacking():
 	weapon.update()
 	pass
-
 #state hurt
 func state_hurt():
 	if ground_check():
 		state_machine.pop_state()
 		state_machine.push_state(STATE.GROUND)
+#		hurtbox.set_monitorable(true)
 	ground_detector.set_enabled(true)
 	pass
 #detect if leave the one way platform
