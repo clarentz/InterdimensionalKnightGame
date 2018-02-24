@@ -1,5 +1,7 @@
 extends "res://Character/Enemy/GroundEnemy/GroundEnemy.gd"
 
+onready var alert_sign = flip.get_node("alert_sign")
+
 # preload classes
 var WanderBehavior  = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/WanderBehavior.gd")
 var PursuitBehavior = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/PursuitBehavior.gd")
@@ -12,7 +14,8 @@ const STATE = {
 	WANDER = "wander",
 	PURSUIT = "pursuit",
 	ATTACK = "attack",
-	HURT = "hurt"
+	HURT = "hurt",
+	ALERT = "alert"
 }
 
 # READY
@@ -58,8 +61,10 @@ func run_anim():
 	elif current_state == STATE.ATTACK:
 		anim.stop()
 		anim.play(STATE.ATTACK)
-	
+	elif current_state == STATE.ALERT:
+		anim.stop()
 	pass
+
 
 # WANDER STATE ------------------------------------------------------------------------
 # WANDERING and IDLING
@@ -68,12 +73,29 @@ func wander():
 	run_anim()
 	
 	## EXIT
-	# WANDER -> PURSUIT
+	# WANDER -> ALERT
 	if player_dt.is_colliding():
 		WanderBehavior.exit()
 		state_machine.pop_state()
-		state_machine.push_state(STATE.PURSUIT)
+		state_machine.push_state(STATE.ALERT)
+	pass
+
+
+# ALERT STATE ------------------------------------------------------------------------
+# ALERTING
+func alert():
+	run_anim()
+	alert_sign.set_hidden(false)
+	var animation = alert_sign.get_node("anim")
+	if not animation.is_playing():
+		animation.play("alert")
+	yield(animation, "finished")
+	alert_sign.set_hidden(true)
 	
+	## EXIT
+	# ALERT -> PURSUIT
+	state_machine.pop_state()
+	state_machine.push_state(STATE.PURSUIT)
 	pass
 
 

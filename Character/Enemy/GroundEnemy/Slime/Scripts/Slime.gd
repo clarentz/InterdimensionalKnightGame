@@ -1,6 +1,7 @@
 extends "res://Character/Enemy/GroundEnemy/GroundEnemy.gd"
 
 onready var hitbox = flip.get_node("attack/hitbox")
+onready var alert_sign = flip.get_node("alert_sign")
 
 # preload classes
 var WanderBehavior  = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/WanderBehavior.gd")
@@ -14,7 +15,8 @@ const STATE = {
 	WANDER = "wander",
 	PURSUIT = "pursuit",
 	ATTACK = "attack",
-	HURT = "hurt"
+	HURT = "hurt",
+	ALERT = "alert"
 }
 
 #Stored Status
@@ -84,7 +86,8 @@ func run_anim():
 	elif current_state == STATE.ATTACK:
 		anim.stop()
 		anim.play(STATE.ATTACK)
-	
+	elif current_state == STATE.ALERT:
+		anim.stop()
 	pass
 
 
@@ -99,8 +102,27 @@ func wander():
 	if player_dt.is_colliding():
 		WanderBehavior.exit()
 		state_machine.pop_state()
-		state_machine.push_state(STATE.PURSUIT)
+		state_machine.push_state(STATE.ALERT)
+	pass
+
+
+
+# ALERT STATE ------------------------------------------------------------------------
+# ALERTING
+func alert():
+	run_anim()
+	direction = sign(target.get_pos().x - get_pos().x)
+	alert_sign.set_hidden(false)
+	var animation = alert_sign.get_node("anim")
+	if not animation.is_playing():
+		animation.play("alert")
+	yield(animation, "finished")
+	alert_sign.set_hidden(true)
 	
+	## EXIT
+	# ALERT -> PURSUIT
+	state_machine.pop_state()
+	state_machine.push_state(STATE.PURSUIT)
 	pass
 
 

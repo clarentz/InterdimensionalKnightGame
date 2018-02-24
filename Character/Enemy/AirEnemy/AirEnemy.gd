@@ -5,6 +5,3 @@ export var TURN_RATE    = 10
 
 func _ready():
 	pass
-
-func fixed_process(delta):
-	pass
