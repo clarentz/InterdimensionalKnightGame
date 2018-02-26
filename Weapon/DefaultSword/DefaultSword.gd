@@ -192,6 +192,10 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		ANIM_PLAYER.play(ANIM_NAME)
 		switch_attack_func()
 		pass
+	func switch_attack_func():
+		USER.jump(-USER.jump_force/2)
+		.switch_attack_func()
+		pass
 	func attack_func():
 		WEAPON.air_move(USER)
 		if USER.btn_atk1.check() == 1:

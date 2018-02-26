@@ -2,6 +2,7 @@
 #var
 #the object affected by this status
 var target
+var anim_status
 
 var duration = 0
 var timer = 0
@@ -11,14 +12,27 @@ var level = 0
 var type
 
 ##FUNCREF: to change default function when the character has different reaction to 
-var start_effect = funcref(self, "start_effect")
-var rev_effect = funcref(self, "rev_start_effect")
-var tick_effect = funcref(self, "tick_effect")
+var start_effect
+var rev_effect
+var tick_effect
 #function
 func _init(t, dur, lv):
 	target = t
 	duration = dur
 	level = lv
+	anim_status = target.anim_status
+	#assign function
+	start_effect = funcref(self, "start_effect")
+	rev_effect = funcref(self, "rev_start_effect")
+	tick_effect = funcref(self, "tick_effect")
+	pass
+
+#run anim status
+func run_anim():
+	if type == Utils.STATUS.POISON:
+		anim_status.play("poison")
+	elif type == Utils.STATUS.INVULNERABLE:
+		anim_status.play("invulnerable")
 	pass
 
 #combine with other status, return true if can combine, false if not

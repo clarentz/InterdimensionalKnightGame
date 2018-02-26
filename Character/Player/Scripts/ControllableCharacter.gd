@@ -22,7 +22,7 @@ var btn_atk2 = input_states.new("btn_atk2")
 
 #weapon
 onready var weapon = flip.get_node("DefaultSword")
-
+onready var hurtbox = get_node("hurtbox")
 #air atk already or not
 var is_air_atk = false
 
@@ -34,6 +34,7 @@ func update_state():
 	state_machine.update()
 	pass
 
+##FUNCTION
 ##ovrride take_damage
 func take_damage(damage, direction, push_back_force):
 	.take_damage(damage, direction, push_back_force)
@@ -42,10 +43,8 @@ func take_damage(damage, direction, push_back_force):
 	state_machine.pop_state()
 	state_machine.push_state(STATE.HURT)
 	ground_detector.set_enabled(false)
+	apply_status(Utils.STATUS.INVULNERABLE, 2, 0)
 	pass
-
-##FUNCTION
-
 #move function
 func move(to_speed, acc): 
 	current_speed.x = lerp(current_speed.x, to_speed, acc*0.01) #acc * 0.01, turn into percent
@@ -63,12 +62,15 @@ func jump(force):
 func state_ground():
 	#inputs
 	if btn_left.check() == 2:
+		play_loop_anim("run")
 		direction = -1
 		move( direction * max_run_speed, accerleration)
 	elif btn_right.check() == 2:
+		play_loop_anim("run")
 		direction = 1
 		move( direction * max_run_speed, accerleration)
 	else:
+		play_loop_anim("idle")
 		move(0, accerleration)
 	
 	#press
@@ -129,12 +131,12 @@ func state_air():
 func state_attacking():
 	weapon.update()
 	pass
-
 #state hurt
 func state_hurt():
 	if ground_check():
 		state_machine.pop_state()
 		state_machine.push_state(STATE.GROUND)
+#		hurtbox.set_monitorable(true)
 	ground_detector.set_enabled(true)
 	pass
 #detect if leave the one way platform
