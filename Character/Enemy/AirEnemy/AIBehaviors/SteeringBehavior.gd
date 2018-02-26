@@ -10,14 +10,9 @@ var target
 
 func _init(body):
 	self.body = body
-	init_variable()
 	pass
 
-func init_variable():
-	target = body.target
-	pass
-
-func fly():
+func steer(target):
 	target_position  = target.get_global_pos()
 	position         = body.get_global_pos()
 	velocity         = body.get_linear_velocity()
@@ -26,5 +21,4 @@ func fly():
 	steering         = steering.clamped(body.TURN_RATE)
 	velocity         = velocity + steering
 	body.set_linear_velocity(velocity)
-	body.direction   = sign(velocity.x)
 	pass

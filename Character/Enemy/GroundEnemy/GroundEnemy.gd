@@ -32,9 +32,8 @@ func _ready():
 	bound_dt_2.add_exception(self)
 	player_dt.add_exception(self)
 	attack_dt.add_exception(self)
-	print("Add Exception Done!")
 	
-	player_dt.set_cast_to(Vector2(DETECT_RANGE, 0))
+	player_dt.set_cast_to(Vector2(DETECTION_RANGE, 0))
 	attack_dt.set_cast_to(Vector2(ATTACK_RANGE, 0))
 	
 	att_time = anim.get_animation("attack").get_length() / anim.get_speed()
@@ -67,4 +66,10 @@ func ground_check():
 			return true
 	else:
 		return false
+	pass
+
+func die():
+	.die()
+	randomize()
+	set_linear_velocity(-100*Vector2(direction*floor(rand_range(2,5)), floor(rand_range(5,10))))
 	pass

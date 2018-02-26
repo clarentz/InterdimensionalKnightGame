@@ -13,6 +13,7 @@
 
 [node name="background" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 1916.47, -314.942 )
 transform/scale = Vector2( 7, 7 )
 z/z = -100
@@ -22,7 +23,7 @@ region_rect = Rect2( 0, 0, 1000, 750 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1373.23, 357.495 )
+transform/pos = Vector2( 1551.76, 377.022 )
 
 [node name="grounds" type="Node" parent="."]
 
@@ -86,17 +87,7 @@ TRACE_AMOUNT = 6
 
 [node name="drone" parent="enemies" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 1292.62, -27.4487 )
-TURN_RATE = 25
-
-[node name="drone10" parent="enemies" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 1354.6, -353.411 )
-TURN_RATE = 25
-
-[node name="drone11" parent="enemies" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 436.767, -290.606 )
+transform/pos = Vector2( 826.772, -58.1333 )
 TURN_RATE = 25
 
 

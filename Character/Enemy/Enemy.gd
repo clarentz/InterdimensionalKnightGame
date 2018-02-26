@@ -17,7 +17,7 @@ export (int) var ATTACK_DMG     = 0
 export (int) var CONTACT_DMG    = 0
 export (int) var EXTRA_GRAVITY  = 2500
 export (Vector2) var KNOCKBACK_FORCE = Vector2(0, 0)
-export (int) var DETECT_RANGE   = 1200
+export (int) var DETECTION_RANGE   = 1200
 export (int) var ATTACK_RANGE   = 200
 export (float) var ATTACK_INTERVAL = 1
 export var ELEMENT = "none"
@@ -58,7 +58,7 @@ func _fixed_process(delta):
 func take_damage(damage, direction, push_back_force):
 	current_health -= damage
 	set_linear_velocity(Vector2(push_back_force.x*direction, push_back_force.y))
-	self.direction = -direction
+	direction = -self.direction
 	pass
 
 # Handle looped animations
@@ -78,8 +78,6 @@ func die():
 	set_fixed_process(false)
 	hurtbox.queue_free()
 	physics_box.queue_free()
-	randomize()
-	set_linear_velocity(-100*Vector2(direction*floor(rand_range(2,5)), floor(rand_range(5,10))))
 	anim.play("die")
 	yield(anim, "finished")
 	queue_free()
