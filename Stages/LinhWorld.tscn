@@ -24,6 +24,7 @@ region_rect = Rect2( 0, 0, 1000, 750 )
 [node name="player" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 1551.76, 377.022 )
+INVULNERABLE_TIME = 1
 
 [node name="grounds" type="Node" parent="."]
 
@@ -88,6 +89,6 @@ TRACE_AMOUNT = 6
 [node name="drone" parent="enemies" instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 826.772, -58.1333 )
-TURN_RATE = 25
+TURN_RATE = 15
 
 

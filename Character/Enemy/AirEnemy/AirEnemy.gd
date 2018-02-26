@@ -12,5 +12,7 @@ func _ready():
 
 func die():
 	.die()
-	set_linear_velocity(Vector2(0,0))
+	var direction = get_pos() - target.get_pos()
+	var velocity = direction.normalized() * MAX_VELOCITY/2
+	set_linear_velocity(velocity.floor())
 	pass

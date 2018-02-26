@@ -280,18 +280,18 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=9]
 
 resource/name = "invulnerable"
-length = 0.5
+length = 0.2
 loop = true
-step = 0.01
+step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("flip/Sprites:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.25, 0.5 ),
+"times": FloatArray( 0, 0.1, 0.2 ),
 "transitions": FloatArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.5, 1.0 ]
+"update": 1,
+"values": [ 1.0, 0.25, 1.0 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -353,6 +353,7 @@ JUMP_FORCE = 1200
 EXTRA_GRAVITY = 2500
 ACCERLERATION = 100
 MAX_HEALTH = 20
+INVULNERABLE_TIME = 100
 
 [node name="flip" type="Node2D" parent="."]
 

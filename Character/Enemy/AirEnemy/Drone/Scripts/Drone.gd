@@ -45,8 +45,8 @@ func flying():
 
 ## EXIT
 # FLYING -> ALERT
-func _on_detect_area_area_enter( area ):
-	if area.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.FLYING:
+func _on_detect_area_body_enter( body ):
+	if body.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.FLYING:
 		state_machine.pop_state()
 		state_machine.push_state(STATE.ALERT)
 	pass # replace with function body
@@ -78,8 +78,8 @@ func pursuit():
 
 ## EXIT
 # PURSUIT -> EXPLODE
-func _on_hurtbox_area_enter( area ):
-	if area.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.PURSUIT:
+func _on_hurtbox_body_enter( body ):
+	if body.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.PURSUIT:
 		state_machine.pop_state()
 		state_machine.push_state(STATE.EXPLODE)
 	pass # replace with function body
@@ -102,10 +102,9 @@ func die_exploding():
 	hurtbox.queue_free()
 	physics_box.queue_free()
 	anim.play("explode")
-	if hitbox.overlaps_body(target):
+	if hitbox.overlaps_area(target.get_node("hurtbox")):
 		var direction = sign(target.get_pos().x - get_pos().x)
 		target.take_damage(ATTACK_DMG, direction, KNOCKBACK_FORCE)
 	yield(anim, "finished")
 	queue_free()
 	pass
-

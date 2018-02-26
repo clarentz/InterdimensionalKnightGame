@@ -11,6 +11,8 @@ const STATE = {
 	HURT = "state_hurt"
 }
 
+export var INVULNERABLE_TIME = 1
+
 #inputs
 var btn_left = input_states.new("btn_left")
 var btn_right = input_states.new("btn_right")
@@ -43,7 +45,7 @@ func take_damage(damage, direction, push_back_force):
 	state_machine.pop_state()
 	state_machine.push_state(STATE.HURT)
 	ground_detector.set_enabled(false)
-	apply_status(Utils.STATUS.INVULNERABLE, 2, 0)
+	apply_status(Utils.STATUS.INVULNERABLE, INVULNERABLE_TIME, 0)
 	pass
 #move function
 func move(to_speed, acc): 

@@ -178,7 +178,7 @@ func attack():
 		
 		## EXIT
 		# ATTACK -> previous STATE
-		if not attack_dt.is_colliding() or not ground_check():
+		if not hitbox.overlaps_body(target) or not ground_check():
 			hitbox.set_enable_monitoring(false)
 			time = ATTACK_INTERVAL + att_time
 			state_machine.pop_state()
