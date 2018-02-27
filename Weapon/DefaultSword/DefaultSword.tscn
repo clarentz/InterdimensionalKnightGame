@@ -709,7 +709,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id=15]
 
-length = 0.15
+length = 0.5
 loop = false
 step = 0.01
 tracks/0/type = "value"
@@ -747,7 +747,7 @@ tracks/3/path = NodePath("testVisual/atk2_thrust:visibility/opacity")
 tracks/3/interp = 1
 tracks/3/imported = false
 tracks/3/keys = {
-"times": FloatArray( 0, 0.15 ),
+"times": FloatArray( 0, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
@@ -792,7 +792,7 @@ tracks/7/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=16]
 
 resource/name = "atk2_thrust_down"
 length = 0.5
@@ -869,7 +869,7 @@ tracks/6/keys = {
 "values": [ 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=17]
 
 length = 0.01
 loop = false
@@ -1200,8 +1200,8 @@ anims/atk2_air_downward_thrust_callback = SubResource( 12 )
 anims/atk2_air_downward_thrust_callback_no_bounce = SubResource( 13 )
 anims/atk2_thrust = SubResource( 14 )
 anims/atk2_thrust_callback = SubResource( 15 )
-anims/atk2_thrust_down = SubResource( 17 )
-anims/init = SubResource( 16 )
+anims/atk2_thrust_down = SubResource( 16 )
+anims/init = SubResource( 17 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

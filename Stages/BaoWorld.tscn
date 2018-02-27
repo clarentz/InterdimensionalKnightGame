@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Environment/Static/ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Character/Player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Environment/ElementalHazard/SimpleElementalHazard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Environment/ElementalHazard/FireFieldHazard.tscn" type="PackedScene" id=3]
 
 [node name="BaoWorld" type="Node"]
 
@@ -18,21 +18,9 @@ transform/pos = Vector2( 1535, 500 )
 
 transform/pos = Vector2( 631.64, 349.899 )
 
-[node name="SimpleElementalHazard" parent="." instance=ExtResource( 3 )]
+[node name="FireFieldHazard" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 1082.71, 404.523 )
-lifetime = 2
-
-[node name="SimpleElementalHazard 2" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 1404.39, 409.218 )
-duration = 6
-lifetime = 2
-
-[node name="SimpleElementalHazard 3" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 1761.45, 412.008 )
-level = 2
-lifetime = 2
+transform/pos = Vector2( 1108, 435.286 )
+lifetime = 10
 
 

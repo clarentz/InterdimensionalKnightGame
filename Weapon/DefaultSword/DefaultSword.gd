@@ -229,7 +229,7 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		pass
 	func callback_func():
 		WEAPON.air_move(USER)
-		USER.jump(700)
+		USER.jump(800)
 		if not ANIM_PLAYER.is_playing():
 			WEAPON.stop_atking()
 		pass
