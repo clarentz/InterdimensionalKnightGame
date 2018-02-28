@@ -30,7 +30,6 @@ func combine(status, delta):
 #effect happen when the status is added into array or combined 
 func start_effect():
 	print("Poison! Time: %d Level: %d" % [duration, level])
-	run_anim()
 	pass
 #reverse the effect happen at the start
 func rev_start_effect():

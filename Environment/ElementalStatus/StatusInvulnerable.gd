@@ -16,14 +16,12 @@ func combine(status, delta):
 	pass
 #effect happen when the status is added into array or combined 
 func start_effect():
-	print("Invulnerable")
 	target.hurtbox.call_deferred("set_enable_monitoring", false)
 	target.hurtbox.call_deferred("set_monitorable", false)
-	run_anim()
+	anim_status.play("invulnerable")
 	pass
 #reverse the effect happen at the start
 func rev_start_effect():
-	print("End Invulnerable")
 	target.hurtbox.call_deferred("set_enable_monitoring", true)
 	target.hurtbox.call_deferred("set_monitorable", true)
 	anim_status.stop()

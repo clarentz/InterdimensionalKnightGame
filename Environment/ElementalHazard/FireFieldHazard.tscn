@@ -14,6 +14,7 @@ colors = ColorArray( 0.585938, 0, 0, 1, 0.585938, 0.274658, 0, 1, 1, 1, 1, 1 )
 
 [node name="FireFieldHazard" type="Area2D"]
 
+z/z = 11
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -35,7 +36,7 @@ _update_shape_index = 0
 
 [node name="FireField" type="Particles2D" parent="."]
 
-config/amount = 150
+config/amount = 200
 config/lifetime = 2.0
 config/process_mode = 1
 config/offset = Vector2( 0, 32 )
@@ -43,7 +44,7 @@ config/half_extents = Vector2( 128, 0 )
 params/direction = 180.0
 params/spread = 0.0
 params/linear_velocity = 30.0
-params/spin_velocity = 0.0
+params/spin_velocity = 5.0
 params/orbit_velocity = 0.0
 params/gravity_direction = 0.0
 params/gravity_strength = 2.0
@@ -51,12 +52,15 @@ params/radial_accel = 0.0
 params/tangential_accel = 0.0
 params/damping = 0.0
 params/initial_angle = 0.0
-params/initial_size = 10.0
+params/initial_size = 15.0
 params/final_size = 5.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/linear_velocity = 0.25
+randomness/spin_velocity = 1.0
+randomness/initial_size = 0.25
+randomness/final_size = 0.5
 color/color_ramp = SubResource( 2 )
 
 

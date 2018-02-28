@@ -27,14 +27,6 @@ func _init(t, dur, lv):
 	tick_effect = funcref(self, "tick_effect")
 	pass
 
-#run anim status
-func run_anim():
-	if type == Utils.STATUS.POISON:
-		anim_status.play("poison")
-	elif type == Utils.STATUS.INVULNERABLE:
-		anim_status.play("invulnerable")
-	pass
-
 #combine with other status, return true if can combine, false if not
 func combine(status):
 	pass
