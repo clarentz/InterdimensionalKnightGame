@@ -4,9 +4,10 @@ var SteeringBehavior = preload("res://Character/Enemy/AirEnemy/AIBehaviors/Steer
 
 onready var hitbox = get_node("hitbox")
 onready var alert_sign = flip.get_node("alert_sign")
+onready var particles = flip.get_node("particles")
 
 export var EXPLOSION_RANGE = 400
-export var CHARGE_UP_TIME = 1
+export (float) var CHARGE_UP_TIME = 1
 
 # STATES
 const STATE = {
@@ -40,7 +41,7 @@ func run_anim():
 
 # WANDER STATE ------------------------------------------------------------------------
 func flying():
-	
+	particles.set_emitting(false)
 	pass
 
 ## EXIT
@@ -74,6 +75,7 @@ func alert():
 func pursuit():
 	SteeringBehavior.steer(target)
 	direction = sign(target.get_pos().x - get_pos().x)
+	particles.set_emitting(true)
 	pass
 
 ## EXIT
@@ -91,6 +93,8 @@ func explode():
 	time = time + Utils.fixed_delta
 	
 	if time >= CHARGE_UP_TIME:
+		particles.set_emitting(false)
+		particles.set_hidden(true)
 		die_exploding()
 	else:
 		play_loop_anim("charging")

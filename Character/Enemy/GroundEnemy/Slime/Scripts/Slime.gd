@@ -46,14 +46,15 @@ func _draw():
 # Take damage when being attacked
 func take_damage(damage, direction, push_back_force):
 	.take_damage(damage, direction, push_back_force)
-	state_machine.pop_state()
-	state_machine.push_state(STATE.HURT)
-	run_anim()
+	if not anim.get_current_animation() == STATE.ATTACK:
+		state_machine.pop_state()
+		state_machine.push_state(STATE.HURT)
+		run_anim()
 	pass
 
 # Deal damage to PLAYER on contact
 func _on_hurtbox_area_enter( area ):
-	if area.is_in_group("PLAYER"):
+	if area.is_in_group("PLAYER") and not state_machine.get_current_state() == STATE.ATTACK:
 		var damage_dir = sign(target.get_pos().x - get_pos().x)
 		target.take_damage(CONTACT_DMG, damage_dir, KNOCKBACK_FORCE)
 	pass # replace with function body
@@ -172,13 +173,14 @@ func attack():
 	
 	# Running Attack condition
 	if time < att_time:
+#		move(get_pos(), 0)
 		obj_attack.update()
 	else:
 		idle()
-		
+	
 		## EXIT
 		# ATTACK -> previous STATE
-		if not hitbox.overlaps_body(target) or not ground_check():
+		if not attack_dt.is_colliding() or not ground_check():
 			hitbox.set_enable_monitoring(false)
 			time = ATTACK_INTERVAL + att_time
 			state_machine.pop_state()

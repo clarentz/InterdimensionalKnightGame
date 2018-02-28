@@ -78,17 +78,28 @@ transform/pos = Vector2( 2417.72, -412.064 )
 
 [node name="ranger" parent="enemies" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 1730.04, 2.73749 )
+transform/pos = Vector2( 2147.86, 173.976 )
 START_POSITION = Vector2( 2800, 350 )
 
 [node name="slime" parent="enemies" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 2153.67, 222.325 )
+transform/pos = Vector2( 1461.87, -0.285355 )
+MAX_HEALTH = 1000
 TRACE_AMOUNT = 6
 
 [node name="drone" parent="enemies" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 826.772, -58.1333 )
+transform/pos = Vector2( 680.756, 178.514 )
+TURN_RATE = 15
+
+[node name="drone1" parent="enemies" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 1330.28, -118.554 )
+TURN_RATE = 15
+
+[node name="drone2" parent="enemies" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 2037.7, 40.0501 )
 TURN_RATE = 15
 
 

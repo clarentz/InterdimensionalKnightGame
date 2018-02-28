@@ -89,15 +89,15 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=4]
 
-length = 0.5
+length = 0.25
 loop = false
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:transform/rot")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.5 ),
+"times": FloatArray( 0, 0.25 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ 10.0, 0.0 ]
@@ -281,7 +281,7 @@ JUMPABLE = false
 MAX_VELOCITY = 300
 PURSUIT_VELOCITY = 400
 JUMP_FORCE = 1200
-PURSUIT_RANGE = 1600
+PURSUIT_RANGE = 1400
 WALK_TIME = Vector2( 1, 6 )
 IDLE_TIME = Vector2( 1, 3 )
 TRACE_AMOUNT = 10

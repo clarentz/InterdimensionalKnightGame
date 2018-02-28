@@ -14,6 +14,7 @@ const STATE = {
 	WANDER = "wander",
 	PURSUIT = "pursuit",
 	ATTACK = "attack",
+	BACKOFF = "backoff",
 	HURT = "hurt",
 	ALERT = "alert"
 }
@@ -39,9 +40,10 @@ func _draw():
 # Take damage when being attacked
 func take_damage(damage, direction, push_back_force):
 	.take_damage(damage, direction, push_back_force)
-	state_machine.pop_state()
-	state_machine.push_state(STATE.HURT)
-	run_anim()
+	if not anim.get_current_animation() == STATE.ATTACK:
+		state_machine.pop_state()
+		state_machine.push_state(STATE.HURT)
+		run_anim()
 	pass
 
 ## Animation handling
@@ -117,6 +119,13 @@ func pursuit():
 	if attack_dt.is_colliding() and ground_check():
 		PursuitBehavior.exit()
 		state_machine.push_state(STATE.ATTACK)
+	
+	pass
+
+
+# BACKOFF STATE -----------------------------------------------------------------------------
+# Back off a step when PLAYER get too close
+func backoff():
 	
 	pass
 

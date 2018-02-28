@@ -5,7 +5,7 @@ onready var anim = flip.get_node("sprite/anim")
 onready var hitbox = flip.get_node("hitbox")
 onready var parent = get_parent()
 
-var pivot = 100
+var pivot = 50
 var direction
 var projectile_range
 var projectile_speed
