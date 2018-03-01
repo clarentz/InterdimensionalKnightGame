@@ -1,11 +1,14 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://Character/Player/Scripts/ControllableCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Weapon/DefaultSword/DefaultSword.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Character/Player/Sprites/knight_64_jump.png" type="Texture" id=3]
-[ext_resource path="res://Character/Player/Sprites/knight_64_idle.png" type="Texture" id=4]
-[ext_resource path="res://Character/Player/Sprites/knight_64_run.png" type="Texture" id=5]
-[ext_resource path="res://Character/Player/Sprites/knight_64_attack.png" type="Texture" id=6]
+[ext_resource path="res://Character/Player/Sprites/knight_64_stabattack.png" type="Texture" id=3]
+[ext_resource path="res://Weapon/DefaultSword/atk2_air_downward_thrust.tres" type="Animation" id=4]
+[ext_resource path="res://Weapon/DefaultSword/atk2_thrust.tres" type="Animation" id=5]
+[ext_resource path="res://Character/Player/Sprites/knight_64_jump.png" type="Texture" id=6]
+[ext_resource path="res://Character/Player/Sprites/knight_64_idle.png" type="Texture" id=7]
+[ext_resource path="res://Character/Player/Sprites/knight_64_run.png" type="Texture" id=8]
+[ext_resource path="res://Character/Player/Sprites/knight_64_attack.png" type="Texture" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
@@ -16,16 +19,72 @@ height = 68.011
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 64, 64 )
+extents = Vector2( 35, 60 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 192, 5 )
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=4]
 
-resource/name = "falling_down"
+resource/name = "atk2_thrust_callback"
+length = 0.5
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("flip/Sprites:offset")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -15 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("flip/Sprites:vframes")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("flip/Sprites:frame")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 5, 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("flip/Sprites:texture")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("flip/Sprites:hframes")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="Animation" id=5]
+
 length = 0.02
 loop = false
 step = 0.01
@@ -57,7 +116,7 @@ tracks/2/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("flip/Sprites:frame")
@@ -80,9 +139,8 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -15 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
-resource/name = "idle"
 length = 1.0
 loop = true
 step = 0.1
@@ -104,7 +162,7 @@ tracks/1/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("flip/Sprites:hframes")
@@ -137,9 +195,8 @@ tracks/4/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 
-resource/name = "jumping_up"
 length = 0.02
 loop = false
 step = 0.01
@@ -171,7 +228,7 @@ tracks/2/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("flip/Sprites:frame")
@@ -194,9 +251,8 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -15 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 
-resource/name = "root"
 length = 0.02
 loop = false
 step = 0.01
@@ -218,7 +274,7 @@ tracks/1/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("flip/Sprites:offset")
@@ -251,9 +307,8 @@ tracks/4/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 
-resource/name = "run"
 length = 1.1
 loop = true
 step = 0.1
@@ -265,52 +320,51 @@ tracks/0/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("flip/Sprites:vframes")
+tracks/1/path = NodePath("flip/Sprites:frame")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("flip/Sprites:hframes")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ 5 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("flip/Sprites:frame")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = {
 "times": FloatArray( 0, 1.1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 0, 9 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("flip/Sprites:offset")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -15 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("flip/Sprites:vframes")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
 tracks/4/type = "value"
-tracks/4/path = NodePath("flip/Sprites:offset")
+tracks/4/path = NodePath("flip/Sprites:hframes")
 tracks/4/interp = 1
 tracks/4/imported = false
 tracks/4/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"update": 1,
+"values": [ 10 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 
-resource/name = "test"
 length = 1.5
 loop = true
 step = 0.1
@@ -322,7 +376,7 @@ tracks/0/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("flip/Sprites:vframes")
@@ -365,7 +419,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -16 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=11]
 
 length = 0.02
 loop = false
@@ -391,7 +445,7 @@ tracks/1/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 
 length = 0.2
 loop = true
@@ -453,7 +507,7 @@ push_back_force = Vector2( 200, -400 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -15 )
-vframes = 6
+hframes = 6
 frame = 4
 
 [node name="physic_collision" type="CollisionShape2D" parent="."]
@@ -514,6 +568,7 @@ _update_shape_index = 0
 
 [node name="oneway_leave" type="Area2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 0, -32 )
 input/pickable = true
 shapes/0/shape = SubResource( 3 )
@@ -536,12 +591,15 @@ _update_shape_index = 0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/falling_down = SubResource( 12 )
-anims/idle = SubResource( 4 )
-anims/jumping_up = SubResource( 11 )
-anims/root = SubResource( 5 )
-anims/run = SubResource( 6 )
-anims/test = SubResource( 7 )
+anims/atk2_air_downward_thrust = ExtResource( 4 )
+anims/atk2_thrust = ExtResource( 5 )
+anims/atk2_thrust_callback = SubResource( 4 )
+anims/falling_down = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/jumping_up = SubResource( 7 )
+anims/root = SubResource( 8 )
+anims/run = SubResource( 9 )
+anims/test = SubResource( 10 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -552,8 +610,8 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/init = SubResource( 9 )
-anims/invulnerable = SubResource( 10 )
+anims/init = SubResource( 11 )
+anims/invulnerable = SubResource( 12 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

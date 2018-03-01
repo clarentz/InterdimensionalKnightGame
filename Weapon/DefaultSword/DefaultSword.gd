@@ -15,6 +15,9 @@ onready var atk2_air_downward_thrust = hitboxes.get_node("atk2_air_downward_thru
 var anim_atk1_combo1 = preload("res://Weapon/DefaultSword/atk1_combo1.tres")
 var anim_atk1_combo2 = preload("res://Weapon/DefaultSword/atk1_combo2.tres")
 var anim_atk1_combo3 = preload("res://Weapon/DefaultSword/atk1_combo3.tres")
+var anim_atk2_air_downward_thrust = preload("res://Weapon/DefaultSword/atk2_air_downward_thrust.tres")
+var anim_atk2_air_downward_thrust_callback = preload("res://Weapon/DefaultSword/atk2_air_downward_thrust_callback.tres")
+var anim_atk2_air_downward_thrust_callback_no_bounce = preload("res://Weapon/DefaultSword/atk2_air_downward_thrust_callback_no_bounce.tres")
 #spawn position of hazard
 onready var spawn_pos = hitboxes.get_node("spawn_pos")
 onready var spawn_pos_2dwt = atk2_air_downward_thrust.get_node("spawn_pos_2dwt")
@@ -141,13 +144,13 @@ class StateAtk1AirSpin extends "res://Utils/AttackState.gd":
 class StateAtk2Thrust extends "res://Utils/AttackState.gd":
 	func _init(weapon).(weapon):
 		HITBOX = weapon.atk2_thrust
-		ANIM_PLAYER = weapon.anim
+		ANIM_PLAYER = USER.anim
 		ANIM_NAME = "atk2_thrust"
 		ANIM_PLAYER.play(ANIM_NAME)
 		switch_attack_func()
 		pass
 	func attack_func():
-		USER.move( USER.direction*USER.max_run_speed*1.5, USER.accerleration)
+		USER.move( USER.direction*USER.max_run_speed, USER.accerleration*2)
 		pass
 		
 	func switch_callback_func():
@@ -191,7 +194,7 @@ class StateAtk2ThrustDown extends "res://Utils/AttackState.gd":
 class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 	func _init(weapon).(weapon):
 		HITBOX = weapon.atk2_air_downward_thrust
-		ANIM_PLAYER = weapon.anim
+		ANIM_PLAYER = USER.anim
 		ANIM_NAME = "atk2_air_downward_thrust"
 		ANIM_PLAYER.play(ANIM_NAME)
 		switch_attack_func()
@@ -218,6 +221,7 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		ANIM_PLAYER.stop()
 		ANIM_NAME = "atk2_air_downward_thrust_callback"
 		ANIM_PLAYER.play(ANIM_NAME)
+		USER.jump(850)
 		if WEAPON.stored_status != null:
 			create_hazard( WEAPON.stored_status )
 			WEAPON.stored_status = null
@@ -233,7 +237,6 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		pass
 	func callback_func():
 		WEAPON.air_move(USER)
-		USER.jump(800)
 		if not ANIM_PLAYER.is_playing():
 			WEAPON.stop_atking()
 		pass
@@ -246,7 +249,7 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 func _on_atk1_combo1_area_enter( area ):
 	if area.is_in_group("ENEMY"):
 		direction = flip.get_scale().x
-		area.get_parent().take_damage(damage, direction,push_back_force*0.5)
+		area.get_parent().take_damage(damage, direction,push_back_force*0.25)
 	pass
 
 func _on_atk1_combo2_area_enter( area ):
@@ -302,7 +305,11 @@ func switch_atk_state_callback_downward_thrust_no_bounce():
 	pass
 #animation load
 func load_animations():
-	user.get_node("anim").add_animation("atk1_combo1", anim_atk1_combo1)
-	user.get_node("anim").add_animation("atk1_combo2", anim_atk1_combo2)
-	user.get_node("anim").add_animation("atk1_combo3", anim_atk1_combo3)
+	var user_anim = user.get_node("anim")
+	user_anim.add_animation("atk1_combo1", anim_atk1_combo1)
+	user_anim.add_animation("atk1_combo2", anim_atk1_combo2)
+	user_anim.add_animation("atk1_combo3", anim_atk1_combo3)
+	user_anim.add_animation("atk2_air_downward_thrust", anim_atk2_air_downward_thrust)
+	user_anim.add_animation("atk2_air_downward_thrust_callback", anim_atk2_air_downward_thrust_callback)
+	user_anim.add_animation("atk2_air_downward_thrust_callback_no_bounce", anim_atk2_air_downward_thrust_callback_no_bounce)
 	pass

@@ -5,17 +5,17 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 50, 64 )
+extents = Vector2( 40, 64 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 55, 64 )
+extents = Vector2( 43, 64 )
 
 [sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 61, 80 )
+extents = Vector2( 62, 80 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
@@ -871,7 +871,7 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id=17]
 
-length = 0.01
+length = 0.02
 loop = false
 step = 0.01
 tracks/0/type = "value"
@@ -954,12 +954,14 @@ status = ""
 
 [node name="hitboxes" type="Node2D" parent="."]
 
+editor/display_folded = true
+
 [node name="atk1_combo1" type="Area2D" parent="hitboxes"]
 
 editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 114, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 75, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -968,7 +970,7 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitboxes/atk1_combo1"]
 
-transform/pos = Vector2( 114, 0 )
+transform/pos = Vector2( 75, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -978,7 +980,7 @@ _update_shape_index = 0
 editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 2 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 119, -1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 75, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -987,17 +989,16 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitboxes/atk1_combo2"]
 
-transform/pos = Vector2( 119, -1 )
+transform/pos = Vector2( 75, 0 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
 [node name="atk1_combo3" type="Area2D" parent="hitboxes"]
 
-editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 123, -2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 110, -2 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -1006,7 +1007,7 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitboxes/atk1_combo3"]
 
-transform/pos = Vector2( 123, -2 )
+transform/pos = Vector2( 110, -2 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
@@ -1078,6 +1079,7 @@ transform/pos = Vector2( 0, 64 )
 
 [node name="testVisual" type="Control" parent="."]
 
+editor/display_folded = true
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
