@@ -19,7 +19,6 @@ var max_health = 0
 onready var flip = get_node("flip")
 onready var ground_detector = get_node("ground_detector")
 onready var anim = get_node("anim")
-onready var anim_status = get_node("anim_status")
 ##Common var
 var direction = 1 #direction = -1:left; 1:right
 var current_speed = Vector2()

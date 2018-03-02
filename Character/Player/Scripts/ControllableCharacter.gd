@@ -10,6 +10,8 @@ const STATE = {
 	ATKING = "state_attacking",
 	HURT = "state_hurt"
 }
+##minor state
+var falling = false
 
 export var INVULNERABLE_TIME = 1
 
@@ -23,6 +25,7 @@ var btn_atk1 = input_states.new("btn_atk1")
 var btn_atk2 = input_states.new("btn_atk2")
 
 #weapon
+onready var anim_status = get_node("anim_status")
 onready var weapon = flip.get_node("DefaultSword")
 onready var hurtbox = get_node("hurtbox")
 #air atk already or not
@@ -98,10 +101,17 @@ func state_ground():
 		state_machine.pop_state()
 		state_machine.push_state(STATE.AIR)
 		is_air_atk = true
+		falling = false
 	pass
 
 #air
 func state_air():
+	#animation:
+	if get_linear_velocity().y < 0 and !falling:
+		anim.play("jumping_up")
+	elif get_linear_velocity().y >= 0:
+		anim.play("falling_down")
+		falling = true
 	#inputs
 	#movement
 	if btn_left.check() == 2:
@@ -125,8 +135,11 @@ func state_air():
 		pass
 	#state
 	if ground_check():
-		state_machine.pop_state()
-		state_machine.push_state(STATE.GROUND)
+		if platform_check() != null && !falling:
+			return
+		else:
+			state_machine.pop_state()
+			state_machine.push_state(STATE.GROUND)
 	pass
 
 #state attacking
