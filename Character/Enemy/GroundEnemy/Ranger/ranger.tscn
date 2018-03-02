@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Scripts/Ranger.gd" type="Script" id=1]
 [ext_resource path="res://Character/Enemy/etc/alert_sign.tscn" type="PackedScene" id=2]
@@ -10,6 +10,11 @@
 custom_solver_bias = 0.0
 radius = 30.0
 height = 100.0
+
+[sub_resource type="ColorRamp" id=12]
+
+offsets = FloatArray( 0, 0.444444, 1 )
+colors = ColorArray( 0, 0, 1, 1, 0.502924, 0.502924, 1, 1, 1, 1, 0, 1 )
 
 [sub_resource type="Animation" id=2]
 
@@ -52,7 +57,23 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=3]
 
-resource/name = "die"
+resource/name = "backoff"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+
 length = 0.6
 loop = false
 step = 0.1
@@ -87,7 +108,7 @@ tracks/2/keys = {
 "values": [ 100 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
 length = 0.25
 loop = false
@@ -103,7 +124,7 @@ tracks/0/keys = {
 "values": [ 10.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 0.5
 loop = true
@@ -119,13 +140,13 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.5
 loop = true
@@ -151,9 +172,8 @@ tracks/1/keys = {
 "values": [ Vector2( -50, 0 ), Vector2( -50, -20 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
-resource/name = "recover"
 length = 0.1
 loop = false
 step = 0.1
@@ -198,7 +218,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 0.5
 loop = true
@@ -234,7 +254,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=11]
 
 custom_solver_bias = 0.0
 radius = 30.0
@@ -275,17 +295,20 @@ EXTRA_GRAVITY = 2500
 KNOCKBACK_FORCE = Vector2( 200, -400 )
 DETECTION_RANGE = 1200
 ATTACK_RANGE = 800
-ATTACK_INTERVAL = 1.0
+ATTACK_COOLDOWN = 1
 ELEMENT = "none"
 JUMPABLE = false
 MAX_VELOCITY = 300
 PURSUIT_VELOCITY = 400
-JUMP_FORCE = 1200
+JUMP_FORCE = 600
 PURSUIT_RANGE = 1400
 WALK_TIME = Vector2( 1, 6 )
 IDLE_TIME = Vector2( 1, 3 )
 TRACE_AMOUNT = 10
 PROJECTILE_SPEED = 600
+BACKOFF_COOLDOWN = 4
+BACKOFF_PROXIMITY = 150
+BACKOFF_DISTANCE = 1000
 
 [node name="flip" type="Node2D" parent="."]
 
@@ -294,6 +317,35 @@ PROJECTILE_SPEED = 600
 visibility/visible = false
 transform/pos = Vector2( 0, -75 )
 
+[node name="backoff_trail" type="Particles2D" parent="flip"]
+
+transform/pos = Vector2( 0, 10 )
+config/amount = 64
+config/lifetime = 1.0
+config/time_scale = 3.0
+config/emitting = false
+config/process_mode = 1
+config/half_extents = Vector2( 0, 60 )
+config/local_space = false
+params/direction = 90.0
+params/spread = 0.0
+params/linear_velocity = 0.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 20.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/initial_size = 0.5
+color/color_ramp = SubResource( 12 )
+
 [node name="sprite" type="Sprite" parent="flip"]
 
 transform/scale = Vector2( 0.5, 0.5 )
@@ -301,7 +353,6 @@ texture = ExtResource( 3 )
 offset = Vector2( -50, -20 )
 flip_h = true
 hframes = 3
-frame = 1
 region_rect = Rect2( 0, 100, 300, 400 )
 
 [node name="anim" type="AnimationPlayer" parent="flip/sprite"]
@@ -310,13 +361,14 @@ playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
 anims/attack = SubResource( 2 )
-anims/die = SubResource( 3 )
-anims/hurt = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/jump = SubResource( 6 )
-anims/pursuit = SubResource( 7 )
-anims/recover = SubResource( 8 )
-anims/wander = SubResource( 9 )
+anims/backoff = SubResource( 3 )
+anims/die = SubResource( 4 )
+anims/hurt = SubResource( 5 )
+anims/idle = SubResource( 6 )
+anims/jump = SubResource( 7 )
+anims/pursuit = SubResource( 8 )
+anims/recover = SubResource( 9 )
+anims/wander = SubResource( 10 )
 playback/active = true
 playback/speed = 0.5
 blend_times = [  ]
@@ -354,7 +406,7 @@ type_mask = 15
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 10 )
+shapes/0/shape = SubResource( 11 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 13 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -366,7 +418,7 @@ collision/layers = 2
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
 
 transform/pos = Vector2( 1, 13 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 trigger = false
 _update_shape_index = 0
 

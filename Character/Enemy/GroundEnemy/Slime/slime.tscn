@@ -305,7 +305,7 @@ EXTRA_GRAVITY = 2500
 KNOCKBACK_FORCE = Vector2( 0, -400 )
 DETECTION_RANGE = 600
 ATTACK_RANGE = 140
-ATTACK_INTERVAL = 1
+ATTACK_COOLDOWN = 1
 ELEMENT = "poison"
 JUMPABLE = true
 MAX_VELOCITY = 300
@@ -325,12 +325,10 @@ transform/pos = Vector2( 0, -25 )
 
 [node name="sprite" type="Sprite" parent="flip"]
 
-editor/display_folded = true
 transform/scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -10 )
 hframes = 11
-frame = 6
 
 [node name="anim" type="AnimationPlayer" parent="flip/sprite"]
 

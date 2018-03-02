@@ -21,6 +21,8 @@ const STATE = {
 
 #Stored Status
 var stored_status
+var attack_timer = 0
+var obj_attack
 
 # READY
 func _ready():
@@ -54,7 +56,7 @@ func take_damage(damage, direction, push_back_force):
 
 # Deal damage to PLAYER on contact
 func _on_hurtbox_area_enter( area ):
-	if area.is_in_group("PLAYER") and not state_machine.get_current_state() == STATE.ATTACK:
+	if area.is_in_group("PLAYER") and not anim.get_current_animation() == STATE.ATTACK:
 		var damage_dir = sign(target.get_pos().x - get_pos().x)
 		target.take_damage(CONTACT_DMG, damage_dir, KNOCKBACK_FORCE)
 	pass # replace with function body
@@ -144,6 +146,7 @@ func pursuit():
 	# PURSUIT -> ATTACK
 	if attack_dt.is_colliding() and ground_check():
 		PursuitBehavior.exit()
+		attack_timer = 0
 		state_machine.push_state(STATE.ATTACK)
 	
 	pass
@@ -156,7 +159,7 @@ func hurt():
 	## EXIT
 	# HURT -> PURSUIT
 	if ground_check() and not anim.is_playing():
-		time = ATTACK_INTERVAL + att_time
+		attack_timer = 0
 		state_machine.pop_state()
 		state_machine.push_state(STATE.PURSUIT)
 	pass
@@ -164,16 +167,15 @@ func hurt():
 # ATTACK STATE -------------------------------------------------------------------------
 # ATTACK the PLAYER
 func attack():
-	time += Utils.fixed_delta
+	attack_timer = attack_timer - Utils.fixed_delta
 	
 	# Start Attack condition
-	if time >= ATTACK_INTERVAL + att_time:
+	if attack_timer <= 0:
 		obj_attack = Attack.new(self)
-		time = 0
+		attack_timer = ATTACK_COOLDOWN + attack_time 
 	
 	# Running Attack condition
-	if time < att_time:
-#		move(get_pos(), 0)
+	if attack_timer >= ATTACK_COOLDOWN:
 		obj_attack.update()
 	else:
 		idle()
@@ -182,7 +184,7 @@ func attack():
 		# ATTACK -> previous STATE
 		if not attack_dt.is_colliding() or not ground_check():
 			hitbox.set_enable_monitoring(false)
-			time = ATTACK_INTERVAL + att_time
+			attack_timer = 0
 			state_machine.pop_state()
 	
 	pass

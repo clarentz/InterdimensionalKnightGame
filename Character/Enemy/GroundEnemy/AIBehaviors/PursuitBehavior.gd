@@ -42,31 +42,31 @@ func set_trace():
 	pass
 
 func move_to_next_trace():
-	if body_position.distance_to(target_position) <= trace_range:
+	if body_position.distance_to(target_position) < trace_range:
 		body.move(target_position, body.PURSUIT_VELOCITY)
 	else:
 		body.move(traces.front(), body.PURSUIT_VELOCITY)
 		
 	# Detect when to jump
 	if body_position.y > traces.front().y + 50:
-		if body.target.ground_check() and body.JUMPABLE:
-			jump()
+		if body_position.y > target_position.y + 50:
+			if body.target.ground_check() and body.JUMPABLE:
+				jump()
 		else:
 			# won't jump if BODY and TARGET is on the same ground
 			traces.pop_front()
 	# Remove the trace when BODY gets close to it
-	elif body_position.distance_to(traces.front()) <= trace_range:
+	elif body_position.y < traces.front().y and abs(body_position.x - traces.front().x) <= trace_range:
 		traces.pop_front()
-	elif body_position.y <= traces.front().y:
-		var dir = sign(target_position.x - body_position.x)
-		if dir == 0:
-			dir = -1
-		body.move(body.get_pos() + Vector2(200,0) * dir, body.PURSUIT_VELOCITY)
+	
+	if not traces.empty() and body_position.distance_to(traces.front()) <= trace_range:
+		traces.pop_front()
 	pass
 
 func jump():
 	if body.ground_check():
 		body.set_axis_velocity(Vector2(0, -body.JUMP_FORCE))
+		traces.pop_front()
 	pass
 
 func exit():

@@ -5,9 +5,9 @@
 [ext_resource path="res://Environment/Static/ground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Environment/Static/wall.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Environment/Static/platform.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/ranger.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Slime/slime.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Character/Enemy/AirEnemy/Drone/drone.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Character/Enemy/GroundEnemy/Slime/slime.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Character/Enemy/AirEnemy/Drone/drone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/ranger.tscn" type="PackedScene" id=8]
 
 [node name="world" type="Node"]
 
@@ -23,7 +23,7 @@ region_rect = Rect2( 0, 0, 1000, 750 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1551.76, 377.022 )
+transform/pos = Vector2( 2210.21, 140.89 )
 INVULNERABLE_TIME = 1
 
 [node name="grounds" type="Node" parent="."]
@@ -76,30 +76,29 @@ transform/pos = Vector2( 2417.72, -412.064 )
 
 [node name="enemies" type="Node" parent="."]
 
-[node name="ranger" parent="enemies" instance=ExtResource( 6 )]
+[node name="slime" parent="enemies" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 2147.86, 173.976 )
-START_POSITION = Vector2( 2800, 350 )
-
-[node name="slime" parent="enemies" instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 1461.87, -0.285355 )
+transform/pos = Vector2( 1741.56, -225.813 )
 MAX_HEALTH = 1000
 TRACE_AMOUNT = 6
 
-[node name="drone" parent="enemies" instance=ExtResource( 8 )]
+[node name="drone" parent="enemies" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 680.756, 178.514 )
+transform/pos = Vector2( 929.224, -367.598 )
 TURN_RATE = 15
 
-[node name="drone1" parent="enemies" instance=ExtResource( 8 )]
+[node name="drone1" parent="enemies" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 1330.28, -118.554 )
+transform/pos = Vector2( 649.642, -403.083 )
 TURN_RATE = 15
 
-[node name="drone2" parent="enemies" instance=ExtResource( 8 )]
+[node name="drone2" parent="enemies" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 2037.7, 40.0501 )
+transform/pos = Vector2( 726.636, -224.952 )
 TURN_RATE = 15
+
+[node name="ranger" parent="enemies" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 1505.09, 3.68399 )
 
 

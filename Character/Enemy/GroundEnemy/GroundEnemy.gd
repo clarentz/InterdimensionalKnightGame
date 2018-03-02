@@ -21,9 +21,7 @@ export (int) var TRACE_AMOUNT   = 10
 
 # private var
 var user = self
-var time
-var att_time
-var obj_attack
+var attack_time
 
 func _ready():
 	ground_dt.add_exception(self)
@@ -36,8 +34,7 @@ func _ready():
 	player_dt.set_cast_to(Vector2(DETECTION_RANGE, 0))
 	attack_dt.set_cast_to(Vector2(ATTACK_RANGE, 0))
 	
-	att_time = anim.get_animation("attack").get_length() / anim.get_speed()
-	time = ATTACK_INTERVAL + att_time
+	attack_time = anim.get_animation("attack").get_length() / anim.get_speed()
 	pass
 
 # define how SELF moves

@@ -10,19 +10,18 @@
 custom_solver_bias = 0.0
 radius = 50.0
 
-[sub_resource type="ColorRamp" id=8]
+[sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 0.625731, 1 )
 colors = ColorArray( 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1 )
 
-[sub_resource type="ColorRamp" id=9]
+[sub_resource type="ColorRamp" id=3]
 
 offsets = FloatArray( 0, 0.684211, 1 )
 colors = ColorArray( 0.945313, 1, 0, 1, 1, 0, 0, 1, 0.996094, 0.813217, 0.498047, 1 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 
-resource/name = "charging"
 length = 0.4
 loop = true
 step = 0.1
@@ -37,9 +36,8 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.554688, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 
-resource/name = "die"
 length = 0.5
 loop = false
 step = 0.1
@@ -54,9 +52,8 @@ tracks/0/keys = {
 "values": [ 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 
-resource/name = "explode"
 length = 1.1
 loop = false
 step = 0.1
@@ -121,17 +118,17 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=7]
 
 custom_solver_bias = 0.0
 radius = 600.0
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=8]
 
 custom_solver_bias = 0.0
 radius = 50.0
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=9]
 
 custom_solver_bias = 0.0
 radius = 400.0
@@ -164,14 +161,14 @@ damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 DEBUG_MODE = true
 START_POSITION = Vector2( 0, 0 )
-MAX_HEALTH = 1
+MAX_HEALTH = 2
 ATTACK_DMG = 0
 CONTACT_DMG = 0
 EXTRA_GRAVITY = 0
 KNOCKBACK_FORCE = Vector2( 200, -400 )
 DETECTION_RANGE = 600
 ATTACK_RANGE = 200
-ATTACK_INTERVAL = 1
+ATTACK_COOLDOWN = 1
 ELEMENT = "none"
 MAX_VELOCITY = 1200
 TURN_RATE = 10
@@ -195,7 +192,7 @@ config/process_mode = 1
 config/half_extents = Vector2( 0, 10 )
 config/local_space = false
 params/direction = 270.0
-params/spread = 20.0
+params/spread = 180.0
 params/linear_velocity = 0.0
 params/spin_velocity = 0.0
 params/orbit_velocity = 0.0
@@ -212,7 +209,7 @@ params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 0.3
 randomness/final_size = 1.0
-color/color_ramp = SubResource( 8 )
+color/color_ramp = SubResource( 2 )
 
 [node name="explode_particle" type="Particles2D" parent="flip"]
 
@@ -242,7 +239,7 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 0.2
-color/color_ramp = SubResource( 9 )
+color/color_ramp = SubResource( 3 )
 
 [node name="sprite" type="Sprite" parent="flip"]
 
@@ -255,9 +252,9 @@ offset = Vector2( 0, -50 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/charging = SubResource( 2 )
-anims/die = SubResource( 3 )
-anims/explode = SubResource( 4 )
+anims/charging = SubResource( 4 )
+anims/die = SubResource( 5 )
+anims/explode = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -275,7 +272,7 @@ _update_shape_index = 0
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 5 )
+shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -286,7 +283,7 @@ collision/layers = 1024
 
 [node name="shape" type="CollisionShape2D" parent="detect_area"]
 
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 trigger = false
 _update_shape_index = 0
 
@@ -297,7 +294,7 @@ _update_shape_index = 0
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -308,7 +305,7 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
 
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 trigger = false
 _update_shape_index = 0
 
@@ -317,7 +314,7 @@ _update_shape_index = 0
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 9 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -328,7 +325,7 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 trigger = false
 _update_shape_index = 0
 

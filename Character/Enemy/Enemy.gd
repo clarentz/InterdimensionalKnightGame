@@ -19,7 +19,7 @@ export (int) var EXTRA_GRAVITY  = 2500
 export (Vector2) var KNOCKBACK_FORCE = Vector2(0, 0)
 export (int) var DETECTION_RANGE   = 1200
 export (int) var ATTACK_RANGE   = 200
-export (float) var ATTACK_INTERVAL = 1
+export (float) var ATTACK_COOLDOWN = 1
 export var ELEMENT = "none"
 
 # init the StateMachine
@@ -43,7 +43,6 @@ func _ready():
 func _process(delta):
 	# flip the sprite
 	flip.set_scale(Vector2(direction, 1))
-	
 	# death
 	if current_health <= 0:
 		die()
