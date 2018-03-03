@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Character/Enemy/AirEnemy/Drone/Scripts/Drone.gd" type="Script" id=1]
 [ext_resource path="res://Character/Enemy/etc/alert_sign.tscn" type="PackedScene" id=2]
@@ -118,17 +118,61 @@ tracks/5/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="Animation" id=12]
+
+resource/name = "flying"
+length = 1.6
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.8 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 30 ), Vector2( 0, -30 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+
+resource/name = "pursuit"
+length = 0.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../particles:config/emitting")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="CircleShape2D" id=13]
 
 custom_solver_bias = 0.0
 radius = 600.0
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=14]
 
 custom_solver_bias = 0.0
 radius = 50.0
 
-[sub_resource type="CircleShape2D" id=9]
+[sub_resource type="CircleShape2D" id=10]
 
 custom_solver_bias = 0.0
 radius = 400.0
@@ -256,6 +300,8 @@ root/root = NodePath("..")
 anims/charging = SubResource( 4 )
 anims/die = SubResource( 5 )
 anims/explode = SubResource( 6 )
+anims/flying = SubResource( 12 )
+anims/pursuit = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -263,6 +309,7 @@ autoplay = ""
 
 [node name="physics_box" type="CollisionShape2D" parent="."]
 
+visibility/visible = false
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -270,8 +317,9 @@ _update_shape_index = 0
 [node name="detect_area" type="Area2D" parent="."]
 
 editor/display_folded = true
+visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 7 )
+shapes/0/shape = SubResource( 13 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -282,7 +330,7 @@ collision/layers = 1024
 
 [node name="shape" type="CollisionShape2D" parent="detect_area"]
 
-shape = SubResource( 7 )
+shape = SubResource( 13 )
 trigger = false
 _update_shape_index = 0
 
@@ -291,8 +339,9 @@ _update_shape_index = 0
 ]]
 
 editor/display_folded = true
+visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 8 )
+shapes/0/shape = SubResource( 14 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -303,15 +352,16 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
 
-shape = SubResource( 8 )
+shape = SubResource( 14 )
 trigger = false
 _update_shape_index = 0
 
 [node name="hitbox" type="Area2D" parent="."]
 
 editor/display_folded = true
+visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 10 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -322,7 +372,7 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 
-shape = SubResource( 9 )
+shape = SubResource( 10 )
 trigger = false
 _update_shape_index = 0
 

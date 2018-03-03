@@ -30,9 +30,13 @@ func _ready():
 	PursuitBehavior = PursuitBehavior.new(self)
 	state_machine.push_state(STATE.WANDER)
 	hitbox.set_enable_monitoring(false)
+	var shape = hitbox.get_node("shape").get_shape()
+	shape.set_extents(Vector2(ATTACK_RANGE/2, shape.get_extents().y))
+	hitbox.set_pos(Vector2(ATTACK_RANGE/2, 0))
 	
 	stored_status = StoredStatus.new(Utils.STATUS.POISON, 3, 1, SimpleHazard)
 	pass
+
 
 func _draw():
 	if DEBUG_MODE:
@@ -182,11 +186,16 @@ func attack():
 	
 		## EXIT
 		# ATTACK -> previous STATE
-		if not attack_dt.is_colliding() or not ground_check():
+		if get_pos().distance_to(target.get_pos()) >= ATTACK_RANGE:
 			hitbox.set_enable_monitoring(false)
 			attack_timer = 0
 			state_machine.pop_state()
 	
+	## EXIT
+	# ATTACK -> previous STATE
+	if not ground_check():
+		attack_timer = 0
+		state_machine.pop_state()
 	pass
 
 func switch_windup_func():

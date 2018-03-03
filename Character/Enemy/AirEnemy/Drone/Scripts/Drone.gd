@@ -23,6 +23,7 @@ func _ready():
 	detect_area.get_node("shape").get_shape().set_radius(DETECTION_RANGE)
 	SteeringBehavior = SteeringBehavior.new(self)
 	state_machine.push_state(STATE.FLYING)
+	particles.set_emitting(false)
 	pass
 
 ## Animation handling
@@ -30,9 +31,10 @@ func run_anim():
 	current_state = state_machine.get_current_state()
 	
 	if current_state == STATE.FLYING:
-		pass
+		play_loop_anim(STATE.FLYING)
 	elif current_state == STATE.PURSUIT:
-		pass
+		if not anim.get_current_animation() == STATE.PURSUIT:
+			anim.play(STATE.PURSUIT)
 	elif current_state == STATE.EXPLODE:
 		pass
 	elif current_state == STATE.ALERT:
@@ -42,7 +44,7 @@ func run_anim():
 
 # WANDER STATE ------------------------------------------------------------------------
 func flying():
-	particles.set_emitting(false)
+	run_anim()
 	pass
 
 ## EXIT
@@ -74,15 +76,16 @@ func alert():
 
 # PURSUIT STATE ------------------------------------------------------------------------
 func pursuit():
+	run_anim()
 	SteeringBehavior.steer(target)
 	direction = sign(target.get_pos().x - get_pos().x)
-	particles.set_emitting(true)
 	pass
 
 ## EXIT
 # PURSUIT -> EXPLODE
 func _on_hurtbox_body_enter( body ):
 	if body.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.PURSUIT:
+		particles.set_emitting(false)
 		state_machine.pop_state()
 		state_machine.push_state(STATE.EXPLODE)
 	pass # replace with function body
@@ -94,8 +97,6 @@ func explode():
 	time = time + Utils.fixed_delta
 	
 	if time >= CHARGE_UP_TIME:
-		particles.set_emitting(false)
-		particles.set_hidden(true)
 		die_exploding()
 	else:
 		play_loop_anim("charging")

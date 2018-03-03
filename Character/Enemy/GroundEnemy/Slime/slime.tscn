@@ -118,7 +118,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 
-length = 0.8
+length = 0.6
 loop = true
 step = 0.1
 tracks/0/type = "value"
@@ -126,10 +126,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 1 ]
+"values": [ 0, 2 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:texture")
@@ -317,7 +317,7 @@ ATTACK_DMG = 0
 CONTACT_DMG = 0
 KNOCKBACK_FORCE = Vector2( 0, -400 )
 DETECTION_RANGE = 600
-ATTACK_RANGE = 140
+ATTACK_RANGE = 120
 ATTACK_COOLDOWN = 1
 JUMPABLE = true
 JUMP_FORCE = 800
@@ -368,7 +368,7 @@ type_mask = 15
 
 [node name="wall_detector" type="RayCast2D" parent="flip"]
 
-transform/pos = Vector2( 0, 15 )
+transform/pos = Vector2( 0, 20 )
 enabled = true
 cast_to = Vector2( 60, 0 )
 layer_mask = 4
@@ -386,7 +386,6 @@ type_mask = 15
 
 [node name="hitbox" type="Area2D" parent="flip/attack"]
 
-editor/display_folded = true
 transform/pos = Vector2( 70, 0 )
 input/pickable = true
 shapes/0/shape = SubResource( 10 )

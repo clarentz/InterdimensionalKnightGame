@@ -1,16 +1,15 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Scripts/Arrow.gd" type="Script" id=1]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Sprites/arrow.png" type="Texture" id=2]
 
 [sub_resource type="ColorRamp" id=1]
 
-offsets = FloatArray( 0, 0.54386, 1 )
+offsets = FloatArray( 0, 0.373563, 1 )
 colors = ColorArray( 0.152353, 0.152344, 1, 1, 0.992188, 0, 0.604614, 1, 1, 0.960938, 0, 1 )
 
 [sub_resource type="ColorRamp" id=2]
 
-offsets = FloatArray( 0, 0.497076, 1 )
+offsets = FloatArray( 0, 0.471264, 1 )
 colors = ColorArray( 0.0078125, 0, 1, 1, 1, 0, 0, 1, 0.734375, 1, 0, 1 )
 
 [sub_resource type="Animation" id=3]
@@ -66,10 +65,10 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=5]
 
 custom_solver_bias = 0.0
-extents = Vector2( 28, 4 )
+radius = 15.0
 
 [node name="arrow" type="KinematicBody2D"]
 
@@ -87,7 +86,6 @@ script/script = ExtResource( 1 )
 config/amount = 48
 config/lifetime = 1.0
 config/time_scale = 2.0
-config/emitting = false
 config/process_mode = 1
 config/half_extents = Vector2( 0, 5 )
 config/local_space = false
@@ -118,7 +116,7 @@ config/time_scale = 6.0
 config/emit_timeout = 3.0
 config/emitting = false
 config/process_mode = 1
-config/explosiveness = 0.25
+config/explosiveness = 0.5
 params/direction = 0.0
 params/spread = 180.0
 params/linear_velocity = 20.0
@@ -140,10 +138,8 @@ color/color_ramp = SubResource( 2 )
 
 [node name="sprite" type="Sprite" parent="flip"]
 
-visibility/visible = false
 transform/rot = 88.0
 transform/scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 2 )
 offset = Vector2( 7, -200 )
 
 [node name="anim" type="AnimationPlayer" parent="flip/sprite"]
@@ -160,10 +156,9 @@ autoplay = ""
 
 [node name="hitbox" type="Area2D" parent="flip"]
 
-editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -24, 0 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -173,7 +168,6 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="flip/hitbox"]
 
-transform/pos = Vector2( -24, 0 )
 shape = SubResource( 5 )
 trigger = false
 _update_shape_index = 0
