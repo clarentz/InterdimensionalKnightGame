@@ -162,15 +162,16 @@ script/script = ExtResource( 1 )
 DEBUG_MODE = true
 START_POSITION = Vector2( 0, 0 )
 MAX_HEALTH = 2
+EXTRA_GRAVITY = 0
+MAX_RUN_SPEED = 1200
+ACCERLERATION = 100
+ELEMENT = "none"
 ATTACK_DMG = 0
 CONTACT_DMG = 0
-EXTRA_GRAVITY = 0
 KNOCKBACK_FORCE = Vector2( 200, -400 )
 DETECTION_RANGE = 600
 ATTACK_RANGE = 200
 ATTACK_COOLDOWN = 1
-ELEMENT = "none"
-MAX_VELOCITY = 1200
 TURN_RATE = 10
 EXPLOSION_RANGE = 400
 CHARGE_UP_TIME = 1.5
@@ -262,7 +263,6 @@ autoplay = ""
 
 [node name="physics_box" type="CollisionShape2D" parent="."]
 
-visibility/visible = false
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -270,7 +270,6 @@ _update_shape_index = 0
 [node name="detect_area" type="Area2D" parent="."]
 
 editor/display_folded = true
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 7 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -292,7 +291,6 @@ _update_shape_index = 0
 ]]
 
 editor/display_folded = true
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -312,7 +310,6 @@ _update_shape_index = 0
 [node name="hitbox" type="Area2D" parent="."]
 
 editor/display_folded = true
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 9 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )

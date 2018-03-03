@@ -3,6 +3,8 @@ extends "res://Character/Character.gd"
 ##import
 var input_states = preload("res://Utils/InputStates.gd")
 
+onready var ground_detector = get_node("ground_detector")
+
 ##CONST
 const STATE = {
 	GROUND = "state_ground",
@@ -13,7 +15,8 @@ const STATE = {
 ##minor state
 var falling = false
 
-export var INVULNERABLE_TIME = 1
+export (int) var JUMP_FORCE = 800
+export (float) var INVULNERABLE_TIME = 1
 
 #inputs
 var btn_left = input_states.new("btn_left")
@@ -27,16 +30,11 @@ var btn_atk2 = input_states.new("btn_atk2")
 #weapon
 onready var anim_status = get_node("anim_status")
 onready var weapon = flip.get_node("DefaultSword")
-onready var hurtbox = get_node("hurtbox")
 #air atk already or not
 var is_air_atk = false
 
 func _ready():
 	state_machine.push_state(STATE.AIR)
-	pass
-
-func update_state():
-	state_machine.update()
 	pass
 
 ##FUNCTION
@@ -61,8 +59,26 @@ func jump(force):
 	set_axis_velocity( Vector2(0,-force) )
 	pass
 
-##STATES
+#ground check
+func ground_check():
+	if ground_detector.is_colliding():
+		var body = ground_detector.get_collider()
+		if body.is_in_group("GROUND"):
+			return true
+	else:
+		return false
+	pass
 
+func platform_check():
+	if ground_detector.is_colliding():
+		var body = ground_detector.get_collider()
+		if body.is_in_group("PLATFORM"):
+			return body
+	else:
+		return null
+	pass
+
+##STATES
 #ground
 func state_ground():
 	#inputs
@@ -86,9 +102,9 @@ func state_ground():
 			if btn_down.check() == 1 || btn_down.check() == 2:
 				add_collision_exception_with(body)
 			else:
-				jump(jump_force)
+				jump(JUMP_FORCE)
 		else:
-			jump(jump_force)
+			jump(JUMP_FORCE)
 	elif btn_atk1.check() == 1:
 		state_machine.push_state(STATE.ATKING)
 		weapon.state_atk1_init()

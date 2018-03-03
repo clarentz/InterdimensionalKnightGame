@@ -11,14 +11,13 @@ custom_solver_bias = 0.0
 radius = 30.0
 height = 100.0
 
-[sub_resource type="ColorRamp" id=12]
+[sub_resource type="ColorRamp" id=2]
 
 offsets = FloatArray( 0, 0.444444, 1 )
 colors = ColorArray( 0, 0, 1, 1, 0.502924, 0.502924, 1, 1, 1, 1, 0, 1 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource/name = "attack"
 length = 0.4
 loop = false
 step = 0.1
@@ -55,9 +54,8 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
-resource/name = "backoff"
 length = 0.5
 loop = true
 step = 0.1
@@ -72,7 +70,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 
 length = 0.6
 loop = false
@@ -108,7 +106,7 @@ tracks/2/keys = {
 "values": [ 100 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 
 length = 0.25
 loop = false
@@ -124,7 +122,7 @@ tracks/0/keys = {
 "values": [ 10.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 0.5
 loop = true
@@ -140,13 +138,13 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 1.0
 loop = false
 step = 0.1
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 0.5
 loop = true
@@ -172,7 +170,7 @@ tracks/1/keys = {
 "values": [ Vector2( -50, 0 ), Vector2( -50, -20 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 0.1
 loop = false
@@ -218,7 +216,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 0.5
 loop = true
@@ -254,7 +252,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=11]
+[sub_resource type="CapsuleShape2D" id=12]
 
 custom_solver_bias = 0.0
 radius = 30.0
@@ -289,18 +287,19 @@ script/script = ExtResource( 1 )
 DEBUG_MODE = true
 START_POSITION = Vector2( 0, 0 )
 MAX_HEALTH = 10
+EXTRA_GRAVITY = 2500
+MAX_RUN_SPEED = 300
+ACCERLERATION = 100
+ELEMENT = "none"
 ATTACK_DMG = 0
 CONTACT_DMG = 0
-EXTRA_GRAVITY = 2500
 KNOCKBACK_FORCE = Vector2( 200, -400 )
 DETECTION_RANGE = 1200
 ATTACK_RANGE = 800
-ATTACK_COOLDOWN = 1
-ELEMENT = "none"
+ATTACK_COOLDOWN = 1.0
 JUMPABLE = false
-MAX_VELOCITY = 300
-PURSUIT_VELOCITY = 400
 JUMP_FORCE = 600
+PURSUIT_VELOCITY = 400
 PURSUIT_RANGE = 1400
 WALK_TIME = Vector2( 1, 6 )
 IDLE_TIME = Vector2( 1, 3 )
@@ -344,7 +343,7 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 randomness/initial_size = 0.5
-color/color_ramp = SubResource( 12 )
+color/color_ramp = SubResource( 2 )
 
 [node name="sprite" type="Sprite" parent="flip"]
 
@@ -360,15 +359,15 @@ region_rect = Rect2( 0, 100, 300, 400 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/attack = SubResource( 2 )
-anims/backoff = SubResource( 3 )
-anims/die = SubResource( 4 )
-anims/hurt = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/jump = SubResource( 7 )
-anims/pursuit = SubResource( 8 )
-anims/recover = SubResource( 9 )
-anims/wander = SubResource( 10 )
+anims/attack = SubResource( 3 )
+anims/backoff = SubResource( 4 )
+anims/die = SubResource( 5 )
+anims/hurt = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/jump = SubResource( 8 )
+anims/pursuit = SubResource( 9 )
+anims/recover = SubResource( 10 )
+anims/wander = SubResource( 11 )
 playback/active = true
 playback/speed = 0.5
 blend_times = [  ]
@@ -406,7 +405,7 @@ type_mask = 15
 editor/display_folded = true
 visibility/visible = false
 input/pickable = true
-shapes/0/shape = SubResource( 11 )
+shapes/0/shape = SubResource( 12 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 13 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -418,7 +417,7 @@ collision/layers = 2
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
 
 transform/pos = Vector2( 1, 13 )
-shape = SubResource( 11 )
+shape = SubResource( 12 )
 trigger = false
 _update_shape_index = 0
 

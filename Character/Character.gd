@@ -1,29 +1,36 @@
 extends RigidBody2D
+
 ##PRELOAD
 var StatusArray = preload("res://Environment/ElementalStatus/StatusArray.gd")
 var StackFSM = preload("res://Utils/StackFSM.gd")
+
+##onready
+onready var flip = get_node("flip")
+onready var anim = get_node("anim")
+onready var hurtbox      = get_node("hurtbox")
+onready var physics_box  = get_node("physics_box")
+
 ##EXPORT VAR
-export (int) var MAX_RUN_SPEED = 800
-export (int) var JUMP_FORCE = 800
-export (int) var EXTRA_GRAVITY = 2500
-export (int) var ACCERLERATION = 100
+export (bool) var DEBUG_MODE   = false
+export (Vector2) var START_POSITION = Vector2(0, 0)
 export (int) var MAX_HEALTH = 20
+export (int) var EXTRA_GRAVITY = 2500
+export (int) var MAX_RUN_SPEED = 800
+export (int) var ACCERLERATION = 100
+export var ELEMENT = "none"
 
-
-var max_run_speed = 0
-var jump_force = 0
+##PRIVATE VAR
+var max_run_speed = 0 #
 var extra_gravity = 0
 var accerleration = 0
 var max_health = 0
-##onready
-onready var flip = get_node("flip")
-onready var ground_detector = get_node("ground_detector")
-onready var anim = get_node("anim")
+
 ##Common var
 var direction = 1 #direction = -1:left; 1:right
 var current_speed = Vector2()
-
-var cur_health = 0
+var current_health = 0
+var current_state = ""
+var elapsed_time = 0
 
 #states: "ground", "air",...
 var state_machine = StackFSM.new(self)
@@ -31,66 +38,50 @@ var state_machine = StackFSM.new(self)
 ##ELEMENTS_HARMFUL
 var status_array = StatusArray.new()
 
-var elapsed_time = 0
-
 func _ready():
 	init_variable()
 	#set fixed process
 	set_process(true)
+	set_fixed_process(true)
 	#apply gravity
 	set_applied_force(Vector2(0,extra_gravity))
 	#set begin health
-	cur_health = max_health
-	pass
-
-func _integrate_forces(state):
-	#call switch state
-	flip.set_scale(Vector2(direction,1))
-	update_state()
-	#call destroyed
-	destroyed()
-	pass
-func _process(delta):
-	elapsed_time = delta
-	active_status(delta)
+	current_health = max_health
 	pass
 
 #inti variable
 func init_variable():
 	max_run_speed = MAX_RUN_SPEED
-	jump_force = JUMP_FORCE
 	extra_gravity = EXTRA_GRAVITY
 	accerleration = ACCERLERATION
 	max_health = MAX_HEALTH
 	pass
+
+func _fixed_process(delta):
+	state_machine.update()
+	update()
+	pass
+
+func _process(delta):
+	elapsed_time = delta
+	flip.set_scale(Vector2(direction,1))
+	active_status(delta)
+	
+	if current_health <= 0:
+		die()
+	pass
+
 # Handle looped animations
 func play_loop_anim(name):
 	if anim.get_current_animation() != name:
 		anim.play(name)
 	pass
-#ground check
-func ground_check():
-	if ground_detector.is_colliding():
-		var body = ground_detector.get_collider()
-		if body.is_in_group("GROUND"):
-			return true
-	else:
-		return false
-	pass
-func platform_check():
-	if ground_detector.is_colliding():
-		var body = ground_detector.get_collider()
-		if body.is_in_group("PLATFORM"):
-			return body
-	else:
-		return null
-	pass
 
 ##take_damage: Can be extend depend character
 #direction: push direction in x-axis
 func take_damage(damage, direction, push_back_force):
-	cur_health -= damage
-	set_linear_velocity(Vector2(push_back_force.x*direction, push_back_force.y))
+	current_health -= damage
+	set_linear_velocity(Vector2(push_back_force.x * direction, push_back_force.y))
 	self.direction = -direction
 	pass
 
@@ -105,10 +96,20 @@ func active_status(delta):
 	status_array.update(delta)
 	pass
 
+# Call this to be idle
+func idle():
+	move(get_pos(), 0)
+	play_loop_anim("idle")
+	pass
 
-##free instance when die
-func destroyed():
-	if cur_health <= 0:
-		queue_free()
+func die():
+	set_process(false)
+	set_fixed_process(false)
+	state_machine.flush()
+	hurtbox.queue_free()
+	physics_box.queue_free()
+	anim.play("die")
+	yield(anim, "finished")
+	queue_free()
 	pass
 

@@ -3,8 +3,8 @@ extends KinematicBody2D
 onready var flip = get_node("flip")
 onready var anim = flip.get_node("sprite/anim")
 onready var hitbox = flip.get_node("hitbox")
-onready var parent = get_parent()
 
+var parent
 var pivot = 50
 var direction
 var projectile_range
@@ -14,13 +14,17 @@ var velocity = Vector2()
 
 func _ready():
 	set_process(true)
+	anim.play("flying")
+	pass
+
+func init_variables(parent):
+	self.parent = parent
 	direction = parent.direction
 	projectile_range = parent.PURSUIT_RANGE
 	projectile_speed = parent.PROJECTILE_SPEED
 	
-	set_pos(Vector2(pivot,0) * direction)
 	flip.set_scale(Vector2(direction, 1))
-	anim.play("flying")
+	set_pos(Vector2(pivot,0) * direction + parent.get_pos())
 	pass
 
 func _process(delta):

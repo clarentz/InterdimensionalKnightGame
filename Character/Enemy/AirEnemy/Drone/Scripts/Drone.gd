@@ -18,6 +18,7 @@ const STATE = {
 }
 
 func _ready():
+	._ready()
 	hitbox.get_node("shape").get_shape().set_radius(EXPLOSION_RANGE)
 	detect_area.get_node("shape").get_shape().set_radius(DETECTION_RANGE)
 	SteeringBehavior = SteeringBehavior.new(self)

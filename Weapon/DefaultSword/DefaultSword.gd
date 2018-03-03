@@ -200,7 +200,7 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		switch_attack_func()
 		pass
 	func switch_attack_func():
-		USER.jump(-USER.jump_force/2)
+		USER.jump(-USER.JUMP_FORCE/2)
 		.switch_attack_func()
 		pass
 	func attack_func():

@@ -31,3 +31,6 @@ func get_current_state():
 	else:
 		return stack.back()
 	pass
+
+func flush():
+	stack.clear()

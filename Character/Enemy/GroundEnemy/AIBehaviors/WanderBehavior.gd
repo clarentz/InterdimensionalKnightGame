@@ -56,7 +56,7 @@ func random_steps():
 		
 		time = 0
 	elif time < walk_time:
-		body.move(target, body.MAX_VELOCITY)
+		body.move(target, body.max_run_speed)
 		is_moving = true
 	else:
 		is_moving = false

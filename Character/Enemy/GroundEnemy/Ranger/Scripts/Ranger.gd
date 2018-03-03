@@ -53,7 +53,9 @@ func _draw():
 # Override
 # Take damage when being attacked
 func take_damage(damage, direction, push_back_force):
-	.take_damage(damage, direction, push_back_force)
+	if not state_machine.get_current_state() == STATE.BACKOFF:
+		.take_damage(damage, direction, push_back_force)
+	
 	if not anim.get_current_animation() == STATE.ATTACK:
 		state_machine.pop_state()
 		state_machine.push_state(STATE.HURT)
@@ -123,6 +125,7 @@ func pursuit():
 	PursuitBehavior.pursuit()
 	run_anim()
 	
+	
 	## EXIT
 	# PURSUIT -> WANDER
 	if is_target_out_of_range(PURSUIT_RANGE, OS.get_window_size().y):
@@ -138,6 +141,11 @@ func pursuit():
 		state_machine.push_state(STATE.ATTACK)
 	pass
 
+	## EXIT
+	# PURSUIT -> BACKOFF
+	if backoff_timer <= 0 and get_pos().distance_to(target.get_pos()) <= BACKOFF_PROXIMITY:
+		state_machine.push_state(STATE.BACKOFF)
+	pass
 
 # HIT STATE -----------------------------------------------------------------------------
 # When SELF is take_damage
@@ -176,14 +184,15 @@ func attack():
 	## EXIT
 	# ATTACK -> BACKOFF
 	if backoff_timer <= 0 and get_pos().distance_to(target.get_pos()) <= BACKOFF_PROXIMITY:
-		attack_timer = 0
-		state_machine.push_state(STATE.BACKOFF)
-	
+		if not anim.get_current_animation() == STATE.ATTACK:
+			attack_timer = 0
+			state_machine.push_state(STATE.BACKOFF)
 	pass
 
 func fire():
 	var arrow = ArrowScene.instance()
-	add_child(arrow)
+	Utils.get_main_node().add_child(arrow)
+	arrow.init_variables(self)
 	pass
 
 
@@ -197,6 +206,12 @@ func backoff():
 			set_axis_velocity(Vector2(BACKOFF_DISTANCE * -direction, -JUMP_FORCE))
 			backoff_timer = BACKOFF_COOLDOWN
 	elif get_linear_velocity().floor().y == 0:
-		backoff_trail.set_emitting(false)
+		while(backoff_trail.is_emitting()):
+			backoff_trail.set_emitting(false)
 		state_machine.pop_state()
+	pass
+
+func die():
+	.die()
+	backoff_trail.set_emitting(false)
 	pass

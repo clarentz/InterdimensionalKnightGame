@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://Character/Player/Scripts/ControllableCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Weapon/DefaultSword/DefaultSword.tscn" type="PackedScene" id=2]
@@ -85,6 +85,13 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=5]
 
+resource/name = "die"
+length = 0.2
+loop = false
+step = 0.1
+
+[sub_resource type="Animation" id=6]
+
 length = 0.02
 loop = false
 step = 0.01
@@ -139,7 +146,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -15 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 
 length = 1.0
 loop = true
@@ -195,7 +202,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 
 length = 0.02
 loop = false
@@ -251,7 +258,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -15 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=9]
 
 length = 0.02
 loop = false
@@ -307,7 +314,7 @@ tracks/4/keys = {
 "values": [ 4 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=10]
 
 length = 1.1
 loop = true
@@ -363,7 +370,7 @@ tracks/4/keys = {
 "values": [ 10 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=11]
 
 length = 1.5
 loop = true
@@ -419,7 +426,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0, -16 ) ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=12]
 
 length = 0.02
 loop = false
@@ -445,7 +452,7 @@ tracks/1/keys = {
 "values": [ 1.0 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=13]
 
 length = 0.2
 loop = true
@@ -488,12 +495,15 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
-MAX_RUN_SPEED = 800
-JUMP_FORCE = 1200
-EXTRA_GRAVITY = 2500
-ACCERLERATION = 100
+DEBUG_MODE = false
+START_POSITION = Vector2( 0, 0 )
 MAX_HEALTH = 20
-INVULNERABLE_TIME = 100
+EXTRA_GRAVITY = 2500
+MAX_RUN_SPEED = 800
+ACCERLERATION = 100
+ELEMENT = "none"
+JUMP_FORCE = 1200
+INVULNERABLE_TIME = 1
 
 [node name="flip" type="Node2D" parent="."]
 
@@ -510,7 +520,7 @@ offset = Vector2( 0, -15 )
 hframes = 6
 frame = 4
 
-[node name="physic_collision" type="CollisionShape2D" parent="."]
+[node name="physics_box" type="CollisionShape2D" parent="."]
 
 shape = SubResource( 1 )
 trigger = false
@@ -545,8 +555,8 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
 [node name="hurtbox" type="Area2D" parent="." groups=[
-"PLAYER",
 "HURTBOX",
+"PLAYER",
 ]]
 
 editor/display_folded = true
@@ -594,12 +604,13 @@ root/root = NodePath("..")
 anims/atk2_air_downward_thrust = ExtResource( 4 )
 anims/atk2_thrust = ExtResource( 5 )
 anims/atk2_thrust_callback = SubResource( 4 )
-anims/falling_down = SubResource( 5 )
-anims/idle = SubResource( 6 )
-anims/jumping_up = SubResource( 7 )
-anims/root = SubResource( 8 )
-anims/run = SubResource( 9 )
-anims/test = SubResource( 10 )
+anims/die = SubResource( 5 )
+anims/falling_down = SubResource( 6 )
+anims/idle = SubResource( 7 )
+anims/jumping_up = SubResource( 8 )
+anims/root = SubResource( 9 )
+anims/run = SubResource( 10 )
+anims/test = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -610,8 +621,8 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/init = SubResource( 11 )
-anims/invulnerable = SubResource( 12 )
+anims/init = SubResource( 12 )
+anims/invulnerable = SubResource( 13 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]

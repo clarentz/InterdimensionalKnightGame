@@ -11,9 +11,8 @@ onready var attack_dt    = flip.get_node("attack/att_detector")
 # Character
 # export var
 export (bool) var JUMPABLE      = false
-export (int) var MAX_VELOCITY   = 300
-export (int) var PURSUIT_VELOCITY = 300
 export (int) var JUMP_FORCE     = 1200
+export (int) var PURSUIT_VELOCITY = 300
 export (int) var PURSUIT_RANGE  = 1200
 export (Vector2) var WALK_TIME  = Vector2(1, 6)
 export (Vector2) var IDLE_TIME  = Vector2(1, 3)
@@ -24,6 +23,7 @@ var user = self
 var attack_time
 
 func _ready():
+	set_process(true)
 	ground_dt.add_exception(self)
 	wall_dt.add_exception(self)
 	bound_dt_1.add_exception(self)
@@ -35,6 +35,10 @@ func _ready():
 	attack_dt.set_cast_to(Vector2(ATTACK_RANGE, 0))
 	
 	attack_time = anim.get_animation("attack").get_length() / anim.get_speed()
+	pass
+
+func _process(delta):
+	
 	pass
 
 # define how SELF moves
