@@ -28,4 +28,6 @@ lifetime = 10
 
 transform/pos = Vector2( 1407.59, 407.628 )
 
+[node name="Hazards" type="Node" parent="."]
+
 
