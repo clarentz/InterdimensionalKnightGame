@@ -29,7 +29,6 @@ var SimpleHazard = preload("res://Environment/ElementalHazard/SimpleElementalHaz
 func _ready():
 	stop_all_hitboxes()
 	load_animations()
-#	stored_status = SimpleHazard
 	pass
 
 func stop_all_hitboxes():
@@ -216,7 +215,7 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		var Hazard_Ins = hazard.spawn_hazard.instance()
 		Hazard_Ins.set_global_pos(WEAPON.spawn_pos_2dwt.get_global_pos())
 		Hazard_Ins.add_child(Hazard_Ins)
-		Utils.get_main_node().get_node("hazards").add_child(Hazard_Ins)
+		Utils.get_main_node().add_child(Hazard_Ins)
 		pass
 	
 	func switch_callback_func():

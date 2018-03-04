@@ -1,11 +1,10 @@
 extends "res://Environment/ElementalStatus/Status.gd"
 
-var base_damage = 1
-
 func _init(t, dur, lv).(t, dur, lv):
 	type = Utils.STATUS.FIRE
 	tick_time = 1
-
+	base_damage = 1
+	
 func combine(status, delta):
 	if status.type == Utils.STATUS.FIRE:
 		#extent duration

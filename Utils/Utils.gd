@@ -7,6 +7,7 @@ var StatusOil = preload("res://Environment/ElementalStatus/StatusOil.gd")
 var StatusFire = preload("res://Environment/ElementalStatus/StatusFire.gd")
 #enum
 enum STATUS{
+	NONE,
 	INVULNERABLE,
 	POISON,
 	OIL,

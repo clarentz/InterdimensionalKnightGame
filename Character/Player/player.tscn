@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=24 format=1]
 
 [ext_resource path="res://Character/Player/Scripts/ControllableCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Weapon/DefaultSword/DefaultSword.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Character/Player/Sprites/knight_64_stabattack.png" type="Texture" id=3]
+[ext_resource path="res://Character/Player/Sprites/knight_64_jump.png" type="Texture" id=3]
 [ext_resource path="res://Weapon/DefaultSword/atk2_air_downward_thrust.tres" type="Animation" id=4]
 [ext_resource path="res://Weapon/DefaultSword/atk2_thrust.tres" type="Animation" id=5]
-[ext_resource path="res://Character/Player/Sprites/knight_64_jump.png" type="Texture" id=6]
+[ext_resource path="res://Character/Player/Sprites/knight_64_stabattack.png" type="Texture" id=6]
 [ext_resource path="res://Character/Player/Sprites/knight_64_idle.png" type="Texture" id=7]
 [ext_resource path="res://Character/Player/Sprites/knight_64_run.png" type="Texture" id=8]
 [ext_resource path="res://Character/Player/Sprites/knight_64_attack.png" type="Texture" id=9]
@@ -15,6 +15,11 @@
 custom_solver_bias = 0.0
 radius = 30.0
 height = 68.011
+
+[sub_resource type="RectangleShape2D" id=14]
+
+custom_solver_bias = 0.0
+extents = Vector2( 64, 64 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -70,7 +75,7 @@ tracks/3/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("flip/Sprites:hframes")
@@ -123,7 +128,7 @@ tracks/2/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("flip/Sprites:frame")
@@ -235,7 +240,7 @@ tracks/2/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("flip/Sprites:frame")
@@ -517,8 +522,26 @@ push_back_force = Vector2( 200, -400 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -15 )
-hframes = 6
-frame = 4
+vframes = 6
+frame = 2
+
+[node name="interact_zone" type="Area2D" parent="flip"]
+
+transform/pos = Vector2( 32, 0 )
+input/pickable = true
+shapes/0/shape = SubResource( 14 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="flip/interact_zone"]
+
+shape = SubResource( 14 )
+trigger = false
+_update_shape_index = 0
 
 [node name="physics_box" type="CollisionShape2D" parent="."]
 
@@ -555,8 +578,8 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
 [node name="hurtbox" type="Area2D" parent="." groups=[
-"PLAYER",
 "HURTBOX",
+"PLAYER",
 ]]
 
 editor/display_folded = true

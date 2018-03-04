@@ -15,7 +15,7 @@ const STATE = {
 ##minor state
 var falling = false
 
-export (int) var JUMP_FORCE = 800
+export (int) var JUMP_FORCE = 1200
 export (float) var INVULNERABLE_TIME = 1
 
 #inputs
