@@ -23,11 +23,13 @@ var btn_down = input_states.new("btn_down")
 var btn_jump = input_states.new("btn_jump")
 var btn_atk1 = input_states.new("btn_atk1")
 var btn_atk2 = input_states.new("btn_atk2")
+var btn_use = input_states.new("btn_use")
 
 #weapon
 onready var anim_status = get_node("anim_status")
 onready var weapon = flip.get_node("DefaultSword")
 onready var hurtbox = get_node("hurtbox")
+onready var interact_zone = flip.get_node("interact_zone")
 #air atk already or not
 var is_air_atk = false
 
@@ -79,6 +81,10 @@ func state_ground():
 		move(0, accerleration)
 	
 	#press
+	for prop in interact_zone.get_overlapping_areas():
+		if prop.is_in_group("INTERACTABLE"):
+			if btn_use.check() == 1:
+				prop.get_parent().interact_effect(self)
 	if btn_jump.check() == 1:
 		#if on platform
 		var body = platform_check()

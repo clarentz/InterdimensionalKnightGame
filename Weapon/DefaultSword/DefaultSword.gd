@@ -215,9 +215,8 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 	func create_hazard(hazard):
 		var Hazard_Ins = hazard.spawn_hazard.instance()
 		Hazard_Ins.set_global_pos(WEAPON.spawn_pos_2dwt.get_global_pos())
-		var node = Node.new()
-		node.add_child(Hazard_Ins)
-		Utils.get_main_node().get_node("hazards").add_child(node)
+		Hazard_Ins.add_child(Hazard_Ins)
+		Utils.get_main_node().get_node("hazards").add_child(Hazard_Ins)
 		pass
 	
 	func switch_callback_func():
