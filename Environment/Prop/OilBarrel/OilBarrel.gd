@@ -7,7 +7,7 @@ onready var spawn_pos = get_node("spawn_pos")
 export var MAX_HEALTH = 8
 export var MAX_AMOUNT = 20
 export var FLYING_FORCE = Vector2(1500, -1000)
-export var SPAWN_INS = preload("res://Environment/ElementalHazard/oil_drop.tscn")
+export var SPAWN_INS = preload("res://Environment/ElementalHazard/OilDrop.tscn")
 export var TICK_TIME = 0.1
 
 var health
