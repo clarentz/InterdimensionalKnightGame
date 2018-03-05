@@ -44,4 +44,6 @@ func creat_status(type, target, duration, level):
 		return StatusInvulnerable.new(target, duration, level)
 	elif type == STATUS.OIL:
 		return StatusOil.new(target, duration, level)
+	elif type == STATUS.FIRE:
+		return StatusFire.new(target, duration, level)
 	pass

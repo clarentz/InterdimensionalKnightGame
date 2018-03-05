@@ -22,10 +22,18 @@ func combine(status, delta):
 			level = status.level
 			#reapply effect
 			start_effect.call_func()
-		return true
+		return self
 		pass
 	#no match type
 	return false
+	pass
+#update
+func update(delta):
+	.update(delta)
+	timer += delta
+	if timer >= tick_time:
+		tick_effect.call_func()
+		timer = 0
 	pass
 #effect happen when the status is added into array or combined 
 func start_effect():

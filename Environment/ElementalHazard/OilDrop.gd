@@ -3,7 +3,7 @@ extends RigidBody2D
 onready var touch_zone = get_node("touch_zone") 
 
 export var duration = 10
-var level = 0
+export var level = 1
 
 var areas
 

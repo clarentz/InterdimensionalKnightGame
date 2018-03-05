@@ -9,10 +9,24 @@ func combine(status, delta):
 		#extent duration
 		if duration < status.duration:
 			duration = status.duration
-		return true
-		pass
+		return self
+	elif status.type == Utils.STATUS.FIRE:
+		status.duration = (duration*level + status.duration*status.level)/(level+status.level)
+		if status.level <= level:
+			status.level = level + 1
+		rev_start_effect()
+		status.start_effect()
+		return status
 	#no match type
 	return false
+	pass
+#update
+func update(delta):
+	.update(delta)
+	timer += delta
+	if timer >= tick_time:
+		tick_effect.call_func()
+		timer = 0
 	pass
 #effect happen when the status is added into array or combined 
 func start_effect():

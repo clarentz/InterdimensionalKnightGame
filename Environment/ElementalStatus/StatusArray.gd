@@ -8,7 +8,10 @@ func add(status, delta):
 	var size = list.size()
 	for i in range(size):
 		done = list[i].combine(status, delta)
-		if done:
+		if !done:
+			continue
+		else:
+			list[i] = done
 			return
 	#cannot combine into anything
 	list.append(status)

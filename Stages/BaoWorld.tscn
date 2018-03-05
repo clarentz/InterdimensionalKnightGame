@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://Environment/Static/ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Character/Player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Prop/OilBarrel/OilBarrel.gd" type="Script" id=3]
 [ext_resource path="res://Environment/ElementalHazard/OilDrop.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Environment/Prop/barrel.png" type="Texture" id=5]
+[ext_resource path="res://Environment/ElementalHazard/FireFieldHazard.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,6 +40,7 @@ transform/pos = Vector2( 631.64, 349.899 )
 
 [node name="oil_barrel" type="RigidBody2D" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 1333.36, 426.099 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -176,6 +178,10 @@ params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
 color/color = Color( 0.927877, 0.953125, 0.491455, 1 )
+
+[node name="FireFieldHazard" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 967.964, 435.165 )
 
 [connection signal="body_enter" from="oil_barrel/ground_dt" to="oil_barrel" method="_on_ground_dt_body_enter"]
 
