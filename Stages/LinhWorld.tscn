@@ -12,7 +12,8 @@
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 
-transform/pos = Vector2( 2336.05, 198.09 )
+transform/pos = Vector2( 1711.75, 356.496 )
+z/z = 100
 
 [node name="grounds" type="Node" parent="."]
 
@@ -66,15 +67,15 @@ transform/pos = Vector2( 2417.72, -412.064 )
 
 [node name="slime" parent="enemies" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 1741.56, -225.813 )
+transform/pos = Vector2( 1360.1, 52.5621 )
 DEBUG_MODE = true
-MAX_HEALTH = 10
+MAX_HEALTH = 1000
 JUMP_FORCE = 1200
 TRACE_AMOUNT = 6
 
 [node name="ranger" parent="enemies" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 1722.45, 358.324 )
+transform/pos = Vector2( 1350.72, 362.884 )
 MAX_HEALTH = 20
 
 [node name="drone" parent="enemies" instance=ExtResource( 7 )]

@@ -191,8 +191,8 @@ func attack():
 
 func fire():
 	var arrow = ArrowScene.instance()
-	Utils.get_main_node().add_child(arrow)
 	arrow.init_variables(self)
+	Utils.get_main_node().add_child(arrow)
 	pass
 
 

@@ -5,6 +5,7 @@ var StatusPoison = preload("res://Environment/ElementalStatus/StatusPoison.gd")
 var StatusInvulnerable = preload("res://Environment/ElementalStatus/StatusInvulnerable.gd")
 #enum
 enum STATUS{
+	NONE = 0
 	POISON = 1
 	INVULNERABLE = 2
 }

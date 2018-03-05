@@ -15,6 +15,8 @@ var velocity = Vector2()
 func _ready():
 	set_process(true)
 	anim.play("flying")
+	flip.set_scale(Vector2(direction, 1))
+	set_pos(Vector2(pivot,0) * direction + parent.get_pos())
 	pass
 
 func init_variables(parent):
@@ -22,9 +24,6 @@ func init_variables(parent):
 	direction = parent.direction
 	projectile_range = parent.PURSUIT_RANGE
 	projectile_speed = parent.PROJECTILE_SPEED
-	
-	flip.set_scale(Vector2(direction, 1))
-	set_pos(Vector2(pivot,0) * direction + parent.get_pos())
 	pass
 
 func _process(delta):

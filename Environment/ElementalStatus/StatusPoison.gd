@@ -1,10 +1,9 @@
 extends "res://Environment/ElementalStatus/Status.gd"
 
-var base_damage = 1
-
 func _init(t, dur, lv).(t, dur, lv):
 	type = Utils.STATUS.POISON
 	tick_time = 1
+	base_damage = 1
 
 func combine(status, delta):
 	if status.type == Utils.STATUS.POISON:
@@ -40,5 +39,5 @@ func rev_start_effect():
 
 #call when timer == tick_time
 func tick_effect():
-	print("duration: %f" % duration)
+	.tick_effect()
 	pass

@@ -27,5 +27,6 @@ lifetime = 10
 [node name="SimpleElementalHazard" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1407.59, 407.628 )
+lifetime = 60
 
 

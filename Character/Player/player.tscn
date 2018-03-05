@@ -472,7 +472,7 @@ tracks/0/keys = {
 "PLAYER",
 ]]
 
-z/z = 10
+z/z = 2
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -555,8 +555,8 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
 [node name="hurtbox" type="Area2D" parent="." groups=[
-"HURTBOX",
 "PLAYER",
+"HURTBOX",
 ]]
 
 editor/display_folded = true

@@ -13,8 +13,8 @@ height = 100.0
 
 [sub_resource type="ColorRamp" id=2]
 
-offsets = FloatArray( 0, 0.444444, 1 )
-colors = ColorArray( 0, 0, 1, 1, 0.502924, 0.502924, 1, 1, 1, 1, 0, 1 )
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 1, 0, 0, 1, 1, 1, 0, 1 )
 
 [sub_resource type="Animation" id=3]
 
@@ -262,6 +262,7 @@ height = 100.0
 "ENEMY",
 ]]
 
+z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 13 )
@@ -319,7 +320,7 @@ transform/pos = Vector2( 0, -75 )
 [node name="backoff_trail" type="Particles2D" parent="flip"]
 
 transform/pos = Vector2( 0, 10 )
-config/amount = 64
+config/amount = 128
 config/lifetime = 1.0
 config/time_scale = 3.0
 config/emitting = false

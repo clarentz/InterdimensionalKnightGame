@@ -1,4 +1,4 @@
-
+var DamageLabel = preload("res://HUD/damage_label.tscn")
 #var
 #the object affected by this status
 var target
@@ -8,6 +8,7 @@ var duration = 0
 var timer = 0
 var tick_time = 0
 var level = 0
+var base_damage = 0
 
 var type
 
@@ -50,4 +51,9 @@ func rev_start_effect():
 
 #call when timer == tick_time
 func tick_effect():
+	# Show Damage
+	var label = DamageLabel.instance()
+	label.init_variables(target)
+	label.show_damage(label.TYPE.DOT, base_damage, 0, type)
+	Utils.get_main_node().add_child(label)
 	pass

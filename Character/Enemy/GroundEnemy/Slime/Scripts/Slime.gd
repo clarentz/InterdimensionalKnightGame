@@ -33,6 +33,7 @@ func _ready():
 	var shape = hitbox.get_node("shape").get_shape()
 	shape.set_extents(Vector2(ATTACK_RANGE/2, shape.get_extents().y))
 	hitbox.set_pos(Vector2(ATTACK_RANGE/2, 0))
+	attack_dt.set_cast_to(Vector2(ATTACK_RANGE*2/3, 0))
 	
 	stored_status = StoredStatus.new(Utils.STATUS.POISON, 3, 1, SimpleHazard)
 	pass
@@ -41,6 +42,7 @@ func _ready():
 func _draw():
 	if DEBUG_MODE:
 		draw_circle(Vector2(0,0), PURSUIT_RANGE, Color(0, 1, 0, 0.1))
+		draw_circle(Vector2(0,0), ATTACK_RANGE, Color(1, 0, 0, 0.5))
 		var prev_item = get_pos()
 		for item in PursuitBehavior.traces:
 			draw_line(prev_item-get_pos(), item-get_pos(), Color(0,0,1), 2)
@@ -180,13 +182,15 @@ func attack():
 	
 	# Running Attack condition
 	if attack_timer >= ATTACK_COOLDOWN:
+		move(get_pos(), 0)
+		direction = sign(target.get_pos().x - get_pos().x)
 		obj_attack.update()
 	else:
 		idle()
 	
 		## EXIT
 		# ATTACK -> previous STATE
-		if get_pos().distance_to(target.get_pos()) >= ATTACK_RANGE:
+		if get_pos().distance_to(target.get_pos()) > ATTACK_RANGE:
 			hitbox.set_enable_monitoring(false)
 			attack_timer = 0
 			state_machine.pop_state()

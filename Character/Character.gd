@@ -3,6 +3,7 @@ extends RigidBody2D
 ##PRELOAD
 var StatusArray = preload("res://Environment/ElementalStatus/StatusArray.gd")
 var StackFSM = preload("res://Utils/StackFSM.gd")
+var DamageLabel = preload("res://HUD/damage_label.tscn")
 
 ##onready
 onready var flip = get_node("flip")
@@ -83,6 +84,12 @@ func take_damage(damage, direction, push_back_force):
 	current_health -= damage
 	set_linear_velocity(Vector2(push_back_force.x * direction, push_back_force.y))
 	self.direction = -direction
+	
+	# Show Damage
+	var label = DamageLabel.instance()
+	label.init_variables(self)
+	label.show_damage(label.TYPE.REGULAR, damage, direction, Utils.STATUS.NONE)
+	Utils.get_main_node().add_child(label)
 	pass
 
 ##to apply element
