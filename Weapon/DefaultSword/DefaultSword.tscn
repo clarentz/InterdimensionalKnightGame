@@ -20,7 +20,7 @@ extents = Vector2( 62, 80 )
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 74, 18 )
+extents = Vector2( 65, 18 )
 
 [sub_resource type="CircleShape2D" id=5]
 
@@ -30,7 +30,7 @@ radius = 97.0
 [sub_resource type="RectangleShape2D" id=6]
 
 custom_solver_bias = 0.0
-extents = Vector2( 24, 50 )
+extents = Vector2( 24, 30 )
 
 [sub_resource type="Animation" id=7]
 
@@ -954,8 +954,6 @@ status = ""
 
 [node name="hitboxes" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="atk1_combo1" type="Area2D" parent="hitboxes"]
 
 editor/display_folded = true
@@ -996,6 +994,7 @@ _update_shape_index = 0
 
 [node name="atk1_combo3" type="Area2D" parent="hitboxes"]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 110, -2 )
@@ -1014,11 +1013,10 @@ _update_shape_index = 0
 
 [node name="atk2_thrust" type="Area2D" parent="hitboxes"]
 
-editor/display_folded = true
-transform/pos = Vector2( 150, 0 )
+transform/pos = Vector2( 80, 20 )
 input/pickable = true
 shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -11.0031, -0.440128 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -1027,7 +1025,6 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitboxes/atk2_thrust"]
 
-transform/pos = Vector2( -11.0031, -0.440128 )
 shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
@@ -1053,7 +1050,7 @@ _update_shape_index = 0
 [node name="atk2_air_downward_thrust" type="Area2D" parent="hitboxes"]
 
 editor/display_folded = true
-transform/pos = Vector2( 0, 115 )
+transform/pos = Vector2( 0, 98 )
 input/pickable = true
 shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -1071,7 +1068,7 @@ _update_shape_index = 0
 
 [node name="spawn_pos_2dwt" type="Position2D" parent="hitboxes/atk2_air_downward_thrust"]
 
-transform/pos = Vector2( 0, 50 )
+transform/pos = Vector2( 0, 30 )
 
 [node name="spawn_pos" type="Position2D" parent="hitboxes"]
 
@@ -1079,7 +1076,6 @@ transform/pos = Vector2( 0, 64 )
 
 [node name="testVisual" type="Control" parent="."]
 
-editor/display_folded = true
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3

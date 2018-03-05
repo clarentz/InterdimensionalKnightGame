@@ -1,13 +1,16 @@
 extends Node
 
 ##PRELOAD
-var StatusPoison = preload("res://Environment/ElementalStatus/StatusPoison.gd")
 var StatusInvulnerable = preload("res://Environment/ElementalStatus/StatusInvulnerable.gd")
+var StatusPoison = preload("res://Environment/ElementalStatus/StatusPoison.gd")
+var StatusOil = preload("res://Environment/ElementalStatus/StatusOil.gd")
+var StatusFire = preload("res://Environment/ElementalStatus/StatusFire.gd")
 #enum
 enum STATUS{
-	NONE = 0
-	POISON = 1
-	INVULNERABLE = 2
+	INVULNERABLE,
+	POISON,
+	OIL,
+	FIRE
 }
 
 var elapsed_time = 0  # Time from the start of the game
@@ -39,4 +42,8 @@ func creat_status(type, target, duration, level):
 		return StatusPoison.new(target, duration, level)
 	elif type == STATUS.INVULNERABLE:
 		return StatusInvulnerable.new(target, duration, level)
+	elif type == STATUS.OIL:
+		return StatusOil.new(target, duration, level)
+	elif type == STATUS.FIRE:
+		return StatusFire.new(target, duration, level)
 	pass

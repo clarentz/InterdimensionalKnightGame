@@ -22,6 +22,7 @@ func _init(t, dur, lv):
 	duration = dur
 	level = lv
 	anim_status = target.anim_status
+	timer = tick_time
 	#assign function
 	start_effect = funcref(self, "start_effect")
 	rev_effect = funcref(self, "rev_start_effect")
@@ -35,10 +36,6 @@ func combine(status):
 #update call by array each process 
 func update(delta):
 	duration -= delta
-	timer += delta
-	if timer >= tick_time:
-		tick_effect.call_func()
-		timer = 0
 	pass
 
 #effect happen when the status is added into array or combined 

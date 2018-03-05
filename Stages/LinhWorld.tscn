@@ -14,6 +14,7 @@
 
 transform/pos = Vector2( 1711.75, 356.496 )
 z/z = 100
+JUMP_FORCE = 800
 
 [node name="grounds" type="Node" parent="."]
 

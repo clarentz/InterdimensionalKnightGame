@@ -208,13 +208,15 @@ class StateAtk2AirThrustDownward extends "res://Utils/AttackState.gd":
 		if USER.btn_atk1.check() == 1:
 			ANIM_PLAYER.stop()
 			HITBOX.call_deferred("set_enable_monitoring", false)
+			USER.jump(100)
 			WEAPON.cur_atk_state = WEAPON.StateAtk1AirSpin.new(WEAPON)
 		pass
 	
 	func create_hazard(hazard):
 		var Hazard_Ins = hazard.spawn_hazard.instance()
 		Hazard_Ins.set_global_pos(WEAPON.spawn_pos_2dwt.get_global_pos())
-		Utils.get_main_node().add_child(Hazard_Ins)
+		Hazard_Ins.add_child(Hazard_Ins)
+		Utils.get_main_node().get_node("hazards").add_child(Hazard_Ins)
 		pass
 	
 	func switch_callback_func():
