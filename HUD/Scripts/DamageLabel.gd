@@ -32,8 +32,8 @@ func show_damage(damage_type, damage, direction, status):
 		randomize()
 		var angle = deg2rad(floor(rand_range(-SPREAD, SPREAD)))
 		var distance = floor(rand_range(DISTANCE.x, DISTANCE.y))
-		final_position.x = start_position.x + DISTANCE.y * cos(angle) * direction
-		final_position.y = start_position.y + DISTANCE.y * sin(angle)
+		final_position.x = start_position.x + distance * cos(angle) * direction
+		final_position.y = start_position.y + distance * sin(angle)
 		
 		# Red color for damages dealt to PLAYER
 		if parent.is_in_group("PLAYER"):
@@ -46,9 +46,9 @@ func show_damage(damage_type, damage, direction, status):
 		final_position.y = start_position.y - floor(rand_range(DISTANCE.x, DISTANCE.y))
 		
 		if status == Utils.STATUS.POISON:
-			color = Color(0, 0.5, 0, 1)    # Green
-			
-			#color = Color(1, 0.549, 0, 1)    # Dark Orange
+			color = Color(0.133, 0.545, 0.133, 1)    # ForestGreen
+		elif status == Utils.STATUS.FIRE:
+			color = Color(1, 0.549, 0, 1)    # Dark Orange
 	pass
 
 func _ready():

@@ -51,5 +51,5 @@ func rev_start_effect():
 
 #call when timer == tick_time
 func tick_effect():
-	print("duration: %f" % duration)
+	.tick_effect()
 	pass

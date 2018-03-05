@@ -65,6 +65,8 @@ func ground_check():
 		var body = ground_dt.get_collider()
 		if body.is_in_group("GROUND"):
 			return true
+		elif body.is_in_group("WALL"):
+			ground_dt.add_exception(body)
 	else:
 		return false
 	pass
