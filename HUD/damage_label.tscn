@@ -9,7 +9,7 @@ z/z = 3
 script/script = ExtResource( 1 )
 DISTANCE = Vector2( 100, 200 )
 SPREAD = 30
-MAX_SCALE = 2
+MAX_SCALE = 2.5
 DURATION = 1
 
 [node name="label" type="Label" parent="."]
@@ -24,7 +24,7 @@ margin/right = 50.0
 margin/bottom = 18.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.501961 )
 custom_constants/shadow_as_outline = 1
 text = "46"
 align = 1

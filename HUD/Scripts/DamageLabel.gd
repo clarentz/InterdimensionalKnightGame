@@ -5,7 +5,7 @@ onready var tween = get_node("tween")
 
 export (int) var DISTANCE = Vector2(100, 200)
 export (int) var SPREAD = 30
-export (float) var MAX_SCALE = 2
+export (float) var MAX_SCALE = 2.5
 export (float) var DURATION = 1
 
 const TYPE = {
@@ -22,6 +22,7 @@ var final_position = Vector2(0,0)
 func init_variables(parent):
 	self.parent = parent
 	start_position = parent.get_pos()
+	final_position = start_position
 	pass
 
 func show_damage(damage_type, damage, direction, status):
@@ -41,7 +42,9 @@ func show_damage(damage_type, damage, direction, status):
 		elif status == Utils.STATUS.NONE:
 			color = Color(1, 1, 1, 1)    # White
 	elif damage_type == TYPE.DOT:
+#		DURATION = DURATION / 2.0
 		randomize()
+		start_position.x = start_position.x + floor(rand_range(-15,15))
 		final_position = start_position
 		final_position.y = start_position.y - floor(rand_range(DISTANCE.x, DISTANCE.y))
 		
