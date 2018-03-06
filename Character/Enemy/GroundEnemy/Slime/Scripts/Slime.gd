@@ -3,10 +3,6 @@ extends "res://Character/Enemy/GroundEnemy/GroundEnemy.gd"
 onready var hitbox = flip.get_node("attack/hitbox")
 onready var alert_sign = flip.get_node("alert_sign")
 
-# preload classes
-var WanderBehavior  = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/WanderBehavior.gd")
-var PursuitBehavior = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/PursuitBehavior.gd")
-
 var StoredStatus = preload("res://Environment/ElementalStatus/StoredStatus.gd")
 var SimpleHazard = preload("res://Environment/ElementalHazard/SimpleElementalHazard.tscn")
 
@@ -26,8 +22,6 @@ var obj_attack
 
 # READY
 func _ready():
-	WanderBehavior  = WanderBehavior.new(self)
-	PursuitBehavior = PursuitBehavior.new(self)
 	state_machine.push_state(STATE.WANDER)
 	hitbox.set_enable_monitoring(false)
 	var shape = hitbox.get_node("shape").get_shape()
@@ -53,11 +47,12 @@ func _draw():
 # Override
 # Take damage when being attacked
 func take_damage(damage, direction, push_back_force):
-	.take_damage(damage, direction, push_back_force)
-	if not anim.get_current_animation() == STATE.ATTACK:
-		state_machine.pop_state()
+	if anim.get_current_animation() == STATE.ATTACK:
+		push_back_force = Vector2(0,0)
+	else:
 		state_machine.push_state(STATE.HURT)
 		run_anim()
+	.take_damage(damage, direction, push_back_force)
 	pass
 
 # Deal damage to PLAYER on contact
@@ -107,13 +102,11 @@ func wander():
 	run_anim()
 	
 	## EXIT
-	# WANDER -> PURSUIT
+	# WANDER -> ALERT
 	if player_dt.is_colliding():
 		WanderBehavior.exit()
-		state_machine.pop_state()
 		state_machine.push_state(STATE.ALERT)
 	pass
-
 
 
 # ALERT STATE ------------------------------------------------------------------------
@@ -142,11 +135,10 @@ func pursuit():
 	run_anim()
 	
 	## EXIT
-	# PURSUIT -> WANDER
+	# PURSUIT -> PREVIOUS STATE
 	if is_target_out_of_range(PURSUIT_RANGE, OS.get_window_size().y):
 		PursuitBehavior.exit()
 		state_machine.pop_state()
-		state_machine.push_state(STATE.WANDER)
 	
 	## EXIT
 	# PURSUIT -> ATTACK
@@ -163,11 +155,10 @@ func hurt():
 	hitbox.set_enable_monitoring(false)
 	
 	## EXIT
-	# HURT -> PURSUIT
+	# HURT -> PREVIOUS STATE
 	if ground_check() and not anim.is_playing():
 		attack_timer = 0
 		state_machine.pop_state()
-		state_machine.push_state(STATE.PURSUIT)
 	pass
 
 # ATTACK STATE -------------------------------------------------------------------------
@@ -188,16 +179,10 @@ func attack():
 	else:
 		idle()
 	
-		## EXIT
-		# ATTACK -> previous STATE
-		if get_pos().distance_to(target.get_pos()) > ATTACK_RANGE:
-			hitbox.set_enable_monitoring(false)
-			attack_timer = 0
-			state_machine.pop_state()
-	
 	## EXIT
 	# ATTACK -> previous STATE
-	if not ground_check():
+	if get_pos().distance_to(target.get_pos()) > ATTACK_RANGE or not ground_check():
+		hitbox.set_enable_monitoring(false)
 		attack_timer = 0
 		state_machine.pop_state()
 	pass

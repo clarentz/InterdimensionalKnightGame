@@ -29,7 +29,7 @@ func pursuit():
 
 func set_trace():
 	if traces.empty():
-		traces.append(body_position)
+		traces.append(target_position)
 	
 	# Make a trace every "trace_range" distance
 	if traces.back().distance_to(target_position) >= trace_range:
@@ -52,13 +52,14 @@ func move_to_next_trace():
 		if body_position.y > target_position.y + 50:
 			if body.target.ground_check() and body.JUMPABLE:
 				jump()
-		else:
-			# won't jump if BODY and TARGET is on the same ground
-			traces.pop_front()
-	# Remove the trace when BODY gets close to it
+			else:
+				# Won't jump if BODY and TARGET is on the same ground
+				traces.pop_front()
+	# Remove the trace when the TARGET is directly below BODY
 	elif body_position.y < traces.front().y and abs(body_position.x - traces.front().x) <= trace_range:
 		traces.pop_front()
 	
+	# Remove the trace when BODY gets close to it
 	if not traces.empty() and body_position.distance_to(traces.front()) <= trace_range:
 		traces.pop_front()
 	pass

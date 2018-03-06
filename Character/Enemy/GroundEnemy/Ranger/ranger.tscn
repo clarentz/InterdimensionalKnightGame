@@ -2,14 +2,14 @@
 
 [ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Scripts/Ranger.gd" type="Script" id=1]
 [ext_resource path="res://Character/Enemy/etc/alert_sign.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Sprites/ranger_sprite.png" type="Texture" id=3]
+[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/Sprites/ma.png" type="Texture" id=3]
 [ext_resource path="res://Debuggers/enemy_debugger.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 30.0
-height = 100.0
+height = 40.0
 
 [sub_resource type="ColorRamp" id=2]
 
@@ -29,29 +29,29 @@ tracks/0/keys = {
 "times": FloatArray( 0 ),
 "transitions": FloatArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:transform/rot")
+tracks/1/type = "method"
+tracks/1/path = NodePath("../..")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.2, 0.3, 0.4 ),
-"transitions": FloatArray( 1, 0.25, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 30.0, -10.0, 0.0 ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath("../..")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
 "times": FloatArray( 0.2 ),
 "transitions": FloatArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "fire"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:offset")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.2, 0.4 ),
+"transitions": FloatArray( 0, 0.25, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -16 ), Vector2( -15, -16 ), Vector2( 0, -16 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -146,7 +146,7 @@ step = 0.1
 
 [sub_resource type="Animation" id=9]
 
-length = 0.5
+length = 0.3
 loop = true
 step = 0.1
 tracks/0/type = "value"
@@ -154,20 +154,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
 "times": FloatArray( 0, 0.3 ),
 "transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( -50, 0 ), Vector2( -50, -20 ) ]
+"update": 0,
+"values": [ 0, 3 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -226,37 +216,17 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 0.3 ),
+"times": FloatArray( 0, 0.5 ),
 "transitions": FloatArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( -50, 0 ), Vector2( -50, -20 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:transform/scale")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ) ]
+"values": [ 0, 3 ]
 }
 
 [sub_resource type="CapsuleShape2D" id=12]
 
 custom_solver_bias = 0.0
 radius = 30.0
-height = 100.0
+height = 40.0
 
 [node name="ranger" type="RigidBody2D" groups=[
 "ENEMY",
@@ -265,7 +235,7 @@ height = 100.0
 z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 2
 collision/mask = 4
@@ -348,11 +318,11 @@ color/color_ramp = SubResource( 2 )
 
 [node name="sprite" type="Sprite" parent="flip"]
 
-transform/scale = Vector2( 0.5, 0.5 )
+transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-offset = Vector2( -50, -20 )
-flip_h = true
-hframes = 3
+offset = Vector2( 0, -16 )
+hframes = 4
+frame = 1
 region_rect = Rect2( 0, 100, 300, 400 )
 
 [node name="anim" type="AnimationPlayer" parent="flip/sprite"]
@@ -376,6 +346,7 @@ autoplay = ""
 
 [node name="player_detector" type="RayCast2D" parent="flip"]
 
+transform/pos = Vector2( 0, -10 )
 enabled = true
 cast_to = Vector2( 800, 0 )
 layer_mask = 1
@@ -399,15 +370,18 @@ cast_to = Vector2( 600, 0 )
 layer_mask = 1
 type_mask = 15
 
+[node name="fire_position" type="Position2D" parent="flip/attack"]
+
+transform/pos = Vector2( 0, -5 )
+
 [node name="hurtbox" type="Area2D" parent="." groups=[
 "ENEMY",
 ]]
 
 editor/display_folded = true
-visibility/visible = false
 input/pickable = true
 shapes/0/shape = SubResource( 12 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -417,29 +391,27 @@ collision/layers = 2
 
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
 
-transform/pos = Vector2( 1, 13 )
 shape = SubResource( 12 )
 trigger = false
 _update_shape_index = 0
 
 [node name="physics_box" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 1, 13 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="ground_detector" type="RayCast2D" parent="."]
 
-transform/pos = Vector2( -50, 100 )
+transform/pos = Vector2( -30, 55 )
 enabled = true
-cast_to = Vector2( 90, 0 )
+cast_to = Vector2( 60, 0 )
 layer_mask = 4
 type_mask = 1
 
 [node name="bound_detector_2" type="RayCast2D" parent="."]
 
-transform/pos = Vector2( -50, 60 )
+transform/pos = Vector2( -50, 20 )
 enabled = true
 cast_to = Vector2( 0, 50 )
 layer_mask = 4
@@ -447,7 +419,7 @@ type_mask = 1
 
 [node name="bound_detector_1" type="RayCast2D" parent="."]
 
-transform/pos = Vector2( 40, 60 )
+transform/pos = Vector2( 50, 20 )
 enabled = true
 cast_to = Vector2( 0, 50 )
 layer_mask = 4

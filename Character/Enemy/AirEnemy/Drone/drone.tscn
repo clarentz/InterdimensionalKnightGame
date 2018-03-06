@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Character/Enemy/AirEnemy/Drone/Scripts/Drone.gd" type="Script" id=1]
 [ext_resource path="res://Character/Enemy/etc/alert_sign.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Character/Enemy/AirEnemy/Drone/Sprites/drone_flying.png" type="Texture" id=3]
+[ext_resource path="res://Character/Enemy/AirEnemy/Drone/Sprites/flying.png" type="Texture" id=3]
 [ext_resource path="res://Debuggers/enemy_debugger.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -133,26 +133,6 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 0, 4 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:texture")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 3 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:hframes")
-tracks/2/interp = 1
-tracks/2/imported = false
-tracks/2/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 1,
-"values": [ 4 ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -313,6 +293,7 @@ transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, 10 )
 hframes = 4
+frame = 1
 
 [node name="anim" type="AnimationPlayer" parent="flip/sprite"]
 

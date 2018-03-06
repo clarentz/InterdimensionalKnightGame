@@ -2,10 +2,8 @@ extends "res://Character/Enemy/GroundEnemy/GroundEnemy.gd"
 
 onready var alert_sign = flip.get_node("alert_sign")
 onready var backoff_trail = flip.get_node("backoff_trail")
+onready var fire_position = flip.get_node("attack").get_node("fire_position")
 
-# preload classes
-var WanderBehavior  = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/WanderBehavior.gd")
-var PursuitBehavior = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/PursuitBehavior.gd")
 var ArrowScene      = preload("res://Character/Enemy/GroundEnemy/Ranger/arrow.tscn")
 
 export var PROJECTILE_SPEED = 600
@@ -28,9 +26,6 @@ var backoff_timer = 0
 
 # READY
 func _ready():
-	set_process(true)
-	WanderBehavior  = WanderBehavior.new(self)
-	PursuitBehavior = PursuitBehavior.new(self)
 	state_machine.push_state(STATE.WANDER)
 	pass
 
@@ -53,13 +48,14 @@ func _draw():
 # Override
 # Take damage when being attacked
 func take_damage(damage, direction, push_back_force):
-	if not state_machine.get_current_state() == STATE.BACKOFF:
-		.take_damage(damage, direction, push_back_force)
-	
-	if not anim.get_current_animation() == STATE.ATTACK:
-		state_machine.pop_state()
+	if anim.get_current_animation() == STATE.ATTACK:
+		push_back_force = Vector2(0,0)
+	else:
 		state_machine.push_state(STATE.HURT)
 		run_anim()
+	
+	if not state_machine.get_current_state() == STATE.BACKOFF:
+		.take_damage(damage, direction, push_back_force)
 	pass
 
 ## Animation handling
@@ -96,7 +92,6 @@ func wander():
 	# WANDER -> ALERT
 	if player_dt.is_colliding():
 		WanderBehavior.exit()
-		state_machine.pop_state()
 		state_machine.push_state(STATE.ALERT)
 	pass
 
@@ -105,6 +100,7 @@ func wander():
 # ALERTING
 func alert():
 	run_anim()
+	direction = sign(target.get_pos().x - get_pos().x)
 	alert_sign.set_hidden(false)
 	var animation = alert_sign.get_node("anim")
 	if not animation.is_playing():
@@ -127,11 +123,10 @@ func pursuit():
 	
 	
 	## EXIT
-	# PURSUIT -> WANDER
+	# PURSUIT -> PREVIOUS STATE
 	if is_target_out_of_range(PURSUIT_RANGE, OS.get_window_size().y):
 		PursuitBehavior.exit()
 		state_machine.pop_state()
-		state_machine.push_state(STATE.WANDER)
 	
 	## EXIT
 	# PURSUIT -> ATTACK
@@ -151,11 +146,10 @@ func pursuit():
 # When SELF is take_damage
 func hurt():
 	## EXIT
-	# HURT -> PURSUIT
+	# HURT -> PREVIOUS STATE
 	if ground_check() and not anim.is_playing():
 		attack_timer = 0
 		state_machine.pop_state()
-		state_machine.push_state(STATE.PURSUIT)
 	pass
 
 
@@ -176,7 +170,7 @@ func attack():
 		idle()
 	
 	## EXIT
-	# ATTACK -> previous STATE
+	# ATTACK -> PREVIOUS STATE
 	if is_target_out_of_range(ATTACK_RANGE*1.5, OS.get_window_size().y) or not ground_check():
 		attack_timer = 0
 		state_machine.pop_state()
@@ -208,6 +202,9 @@ func backoff():
 	elif get_linear_velocity().floor().y == 0:
 		while(backoff_trail.is_emitting()):
 			backoff_trail.set_emitting(false)
+		
+		## EXIT
+		# BACKOFF -> PREVIOUS STATE
 		state_machine.pop_state()
 	pass
 

@@ -51,7 +51,6 @@ func flying():
 # FLYING -> ALERT
 func _on_detect_area_body_enter( body ):
 	if body.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.FLYING:
-		state_machine.pop_state()
 		state_machine.push_state(STATE.ALERT)
 	pass # replace with function body
 
@@ -86,7 +85,6 @@ func pursuit():
 func _on_hurtbox_body_enter( body ):
 	if body.is_in_group("PLAYER") and state_machine.get_current_state() == STATE.PURSUIT:
 		particles.set_emitting(false)
-		state_machine.pop_state()
 		state_machine.push_state(STATE.EXPLODE)
 	pass # replace with function body
 

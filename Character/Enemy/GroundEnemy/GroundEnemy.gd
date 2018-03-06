@@ -1,5 +1,9 @@
 extends "res://Character/Enemy/Enemy.gd"
 
+# Common Behaviors
+var WanderBehavior  = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/WanderBehavior.gd")
+var PursuitBehavior = preload("res://Character/Enemy/GroundEnemy/AIBehaviors/PursuitBehavior.gd")
+
 # onready var
 onready var ground_dt    = get_node("ground_detector")
 onready var bound_dt_1   = get_node("bound_detector_1")
@@ -33,6 +37,9 @@ func _ready():
 	
 	player_dt.set_cast_to(Vector2(DETECTION_RANGE, 0))
 	attack_dt.set_cast_to(Vector2(ATTACK_RANGE, 0))
+	
+	WanderBehavior  = WanderBehavior.new(self)
+	PursuitBehavior = PursuitBehavior.new(self)
 	
 	attack_time = anim.get_animation("attack").get_length() / anim.get_speed()
 	pass

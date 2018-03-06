@@ -5,25 +5,26 @@ onready var anim = flip.get_node("sprite/anim")
 onready var hitbox = flip.get_node("hitbox")
 
 var parent
-var pivot = 50
+var pivot
 var direction
 var projectile_range
 var projectile_speed
 var distance = 0
 var velocity = Vector2()
 
-func _ready():
-	set_process(true)
-	anim.play("flying")
-	flip.set_scale(Vector2(direction, 1))
-	set_pos(Vector2(pivot,0) * direction + parent.get_pos())
-	pass
-
 func init_variables(parent):
 	self.parent = parent
 	direction = parent.direction
 	projectile_range = parent.PURSUIT_RANGE
 	projectile_speed = parent.PROJECTILE_SPEED
+	pivot = parent.fire_position.get_pos()
+	pass
+
+func _ready():
+	set_process(true)
+	anim.play("flying")
+	flip.set_scale(Vector2(direction, 1))
+	set_pos(pivot * direction + parent.get_pos())
 	pass
 
 func _process(delta):
