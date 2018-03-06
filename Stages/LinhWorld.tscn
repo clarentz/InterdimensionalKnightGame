@@ -12,7 +12,7 @@
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 
-transform/pos = Vector2( 1869.05, 234.355 )
+transform/pos = Vector2( 2091.72, 173.009 )
 
 [node name="grounds" type="Node" parent="."]
 
@@ -74,11 +74,11 @@ TRACE_AMOUNT = 6
 
 [node name="ranger" parent="enemies" instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 1498.77, 435.058 )
+transform/pos = Vector2( 1460.14, 389.617 )
 MAX_HEALTH = 20
 
 [node name="drone" parent="enemies" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 760.351, 275.086 )
+transform/pos = Vector2( 864.866, -211.137 )
 
 

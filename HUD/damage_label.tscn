@@ -5,7 +5,7 @@
 
 [node name="damage_label" type="Position2D"]
 
-z/z = 3
+z/z = 10
 script/script = ExtResource( 1 )
 DISTANCE = Vector2( 100, 200 )
 SPREAD = 30

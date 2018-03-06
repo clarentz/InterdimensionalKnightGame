@@ -9,7 +9,7 @@ var ArrowScene      = preload("res://Character/Enemy/GroundEnemy/Ranger/arrow.ts
 export var PROJECTILE_SPEED = 600
 export var BACKOFF_COOLDOWN = 4
 export var BACKOFF_PROXIMITY = 150
-export var BACKOFF_DISTANCE = 1000
+export var BACKOFF_FORCE = 1800
 
 # STATES
 const STATE = { 
@@ -26,6 +26,7 @@ var backoff_timer = 0
 
 # READY
 func _ready():
+	backoff_trail.set_emitting(false)
 	state_machine.push_state(STATE.WANDER)
 	pass
 
@@ -78,7 +79,8 @@ func run_anim():
 	elif current_state == STATE.ALERT:
 		anim.stop()
 	elif current_state == STATE.BACKOFF:
-		play_loop_anim(STATE.BACKOFF)
+		anim.stop()
+		anim.play("backoff")
 	pass
 
 
@@ -178,9 +180,8 @@ func attack():
 	## EXIT
 	# ATTACK -> BACKOFF
 	if backoff_timer <= 0 and get_pos().distance_to(target.get_pos()) <= BACKOFF_PROXIMITY:
-		if not anim.get_current_animation() == STATE.ATTACK:
-			attack_timer = 0
-			state_machine.push_state(STATE.BACKOFF)
+		attack_timer = 0
+		state_machine.push_state(STATE.BACKOFF)
 	pass
 
 func fire():
@@ -193,13 +194,19 @@ func fire():
 # BACKOFF STATE -----------------------------------------------------------------------------
 # Back off a step when PLAYER get too close
 func backoff():
+	var position = get_pos()
+	
 	if backoff_timer <= 0:
 		if ground_check():
 			run_anim()
 			backoff_trail.set_emitting(true)
-			set_axis_velocity(Vector2(BACKOFF_DISTANCE * -direction, -JUMP_FORCE))
+			set_axis_velocity(Vector2(BACKOFF_FORCE * -direction, 0))
 			backoff_timer = BACKOFF_COOLDOWN
-	elif get_linear_velocity().floor().y == 0:
+		else:
+			state_machine.pop_state()
+	elif get_linear_velocity().x == 0 or not bound_dt_1.is_colliding() or not bound_dt_2.is_colliding():
+		move(get_pos(), 0)
+		
 		while(backoff_trail.is_emitting()):
 			backoff_trail.set_emitting(false)
 		
