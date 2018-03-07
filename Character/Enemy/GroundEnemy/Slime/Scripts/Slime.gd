@@ -20,9 +20,6 @@ var stored_status
 var attack_timer = 0
 var obj_attack
 
-# Health Bar
-# onready var health_bar = get_node("health_bar")
-
 # READY
 func _ready():
 	state_machine.push_state(STATE.WANDER)
@@ -33,8 +30,6 @@ func _ready():
 	attack_dt.set_cast_to(Vector2(ATTACK_RANGE*2/3, 0))
 	
 	stored_status = StoredStatus.new(Utils.STATUS.POISON, 3, 1, SimpleHazard)
-	
-	# health_bar.init(max_health, health)
 	pass
 
 
