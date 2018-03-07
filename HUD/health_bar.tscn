@@ -1,32 +1,70 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://HUD/Scripts/HealthBar.gd" type="Script" id=1]
+[ext_resource path="res://HUD/Sprites/health_bar_background.png" type="Texture" id=2]
+[ext_resource path="res://HUD/Sprites/health_bar_bar.png" type="Texture" id=3]
+[ext_resource path="res://HUD/Sprites/health_bar_frame.png" type="Texture" id=4]
+[ext_resource path="res://Utils/Fonts/import_fonts/SFCartoonistHand-Bold.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+
+font/size = 10
+font/use_mipmaps = false
+font/use_filter = false
+font/font = ExtResource( 5 )
 
 [node name="health_bar" type="Node2D"]
 
 script/script = ExtResource( 1 )
+display_health_text = true
 
-[node name="bar" type="TextureProgress" parent="."]
+[node name="background" type="TextureFrame" parent="."]
 
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 500.0
-margin/bottom = 210.0
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 1.0
-range/exp_edit = false
-range/rounded = false
-texture/under = null
-texture/over = null
-texture/progress = null
-radial_fill/fill_degrees = 360.0
-radial_fill/center_offset = Vector2( 0, 0 )
+margin/left = -64.0
+margin/top = -18.0
+margin/right = 64.0
+margin/bottom = 22.0
+texture = ExtResource( 2 )
+stretch_mode = 0
+
+[node name="health" type="TextureFrame" parent="."]
+
+rect/scale = Vector2( 1, 0.8 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -64.0
+margin/top = -14.0
+margin/right = 64.0
+margin/bottom = 26.0
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="healthbar_overlay" type="Sprite" parent="."]
+
+texture = ExtResource( 4 )
+
+[node name="health_text" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -20.0
+margin/top = -10.0
+margin/right = 20.0
+margin/bottom = 9.0
+custom_fonts/font = SubResource( 1 )
+text = "100%"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

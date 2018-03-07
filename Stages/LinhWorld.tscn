@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://Character/Player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Environment/Static/ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/Static/wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Environment/Static/platform.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Character/Enemy/GroundEnemy/Slime/slime.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/ranger.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Character/Enemy/AirEnemy/Drone/drone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://HUD/health_bar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Character/Enemy/GroundEnemy/Ranger/ranger.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Character/Enemy/AirEnemy/Drone/drone.tscn" type="PackedScene" id=8]
 
 [node name="world" type="Node"]
 
@@ -72,13 +73,18 @@ MAX_HEALTH = 1000
 JUMP_FORCE = 1200
 TRACE_AMOUNT = 6
 
-[node name="ranger" parent="enemies" instance=ExtResource( 6 )]
+[node name="health_bar" parent="enemies/slime" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 3.68311, 65.0701 )
+
+[node name="ranger" parent="enemies" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 1460.14, 389.617 )
 MAX_HEALTH = 20
 
-[node name="drone" parent="enemies" instance=ExtResource( 7 )]
+[node name="drone" parent="enemies" instance=ExtResource( 8 )]
 
+visibility/visible = false
 transform/pos = Vector2( 864.866, -211.137 )
 
 
